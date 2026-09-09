@@ -1,0 +1,134 @@
+diff --git a/scripts/list_boards.py b/scripts/list_boards.py
+index 9c21e53541a..98a60b346c5 100755
+--- a/scripts/list_boards.py
++++ b/scripts/list_boards.py
+@@ -226,7 +226,7 @@ def load_v2_boards(board_name, board_yml, systems):
+     boards = {}
+     board_extensions = []
+     if board_yml.is_file():
+-        with board_yml.open('r') as f:
++        with board_yml.open('r', encoding="utf-8") as f:
+             b = yaml.load(f.read(), Loader=SafeLoader)
+ 
+         try:
+diff --git a/soc/nordic/nrf52/soc.c b/soc/nordic/nrf52/soc.c
+index 4bb3b8640e5..af39e5ee20c 100644
+--- a/soc/nordic/nrf52/soc.c
++++ b/soc/nordic/nrf52/soc.c
+@@ -31,7 +31,7 @@ static int nordicsemi_nrf52_init(void)
+ 	/* Enable the instruction cache */
+ 	NRF_NVMC->ICACHECNF = NVMC_ICACHECNF_CACHEEN_Msk;
+ #endif
+-
++	
+ #if defined(CONFIG_SOC_DCDC_NRF52X) || (DT_PROP(DT_INST(0, nordic_nrf5x_regulator),                \
+ 						regulator_initial_mode) == NRF5X_REG_MODE_DCDC)
+ 	nrf_power_dcdcen_set(NRF_POWER, true);
+@@ -50,3 +50,41 @@ void arch_busy_wait(uint32_t time_us)
+ }
+ 
+ SYS_INIT(nordicsemi_nrf52_init, PRE_KERNEL_1, 0);
++
++// The following is added by Xiaoyuan (Sean) Ma to adapt nrf52840 to a non-crystal platform
++static int board_nrf52840dongle_nrf52840_init(void)
++{
++
++	/* if the nrf52840dongle_nrf52840 board is powered from USB
++	 * (high voltage mode), GPIO output voltage is set to 1.8 volts by
++	 * default and that is not enough to turn the green and blue LEDs on.
++	 * Increase GPIO voltage to 3.0 volts.
++	 */
++	if ((nrf_power_mainregstatus_get(NRF_POWER) ==
++	     NRF_POWER_MAINREGSTATUS_HIGH) &&
++	    ((NRF_UICR->REGOUT0 & UICR_REGOUT0_VOUT_Msk) ==
++	     (UICR_REGOUT0_VOUT_DEFAULT << UICR_REGOUT0_VOUT_Pos))) {
++
++		NRF_NVMC->CONFIG = NVMC_CONFIG_WEN_Wen << NVMC_CONFIG_WEN_Pos;
++		while (NRF_NVMC->READY == NVMC_READY_READY_Busy) {
++			;
++		}
++
++		NRF_UICR->REGOUT0 =
++		    (NRF_UICR->REGOUT0 & ~((uint32_t)UICR_REGOUT0_VOUT_Msk)) |
++		    (UICR_REGOUT0_VOUT_3V3 << UICR_REGOUT0_VOUT_Pos);
++
++		NRF_NVMC->CONFIG = NVMC_CONFIG_WEN_Ren << NVMC_CONFIG_WEN_Pos;
++		while (NRF_NVMC->READY == NVMC_READY_READY_Busy) {
++			;
++		}
++
++		/* a reset is required for changes to take effect */
++		NVIC_SystemReset();
++	}
++
++	return 0;
++}
++
++SYS_INIT(board_nrf52840dongle_nrf52840_init, PRE_KERNEL_1,
++	 CONFIG_KERNEL_INIT_PRIORITY_DEFAULT);
+diff --git a/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/radio.c b/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/radio.c
+index cd8570ad0aa..263300a35a1 100644
+--- a/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/radio.c
++++ b/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/radio.c
+@@ -76,13 +76,17 @@ BUILD_ASSERT(NRF_DT_GPIOTE_INST(FEM_NODE, HAL_RADIO_GPIO_PA_PROP) ==
+ #endif
+ 
+ #if defined(HAL_RADIO_FEM_IS_NRF21540)
++#if DT_NODE_HAS_PROP(FEM_NODE, pdn_gpios)
+ static const nrfx_gpiote_t gpiote_pdn = NRFX_GPIOTE_INSTANCE(
+ 	NRF_DT_GPIOTE_INST(FEM_NODE, pdn_gpios));
+ static uint8_t gpiote_ch_pdn;
++#endif
++#if defined(HAL_RADIO_FEM_NRF21540_HAS_CSN)
+ static const nrfx_gpiote_t gpiote_csn = NRFX_GPIOTE_INSTANCE(
+ 	NRF_DT_GPIOTE_INST(DT_BUS(FEM_SPI_DEV_NODE), cs_gpios));
+ static uint8_t gpiote_ch_csn;
+ #endif
++#endif
+ 
+ /* These headers require the above gpiote-related variables to be declared. */
+ #if defined(PPI_PRESENT)
+@@ -259,8 +263,10 @@ void radio_reset(void)
+ 	hal_palna_ppi_setup();
+ #endif
+ #if defined(HAL_RADIO_FEM_IS_NRF21540)
++#if defined(NRF_GPIO_PDN_PIN) && defined(NRF_GPIO_CSN_PIN)
+ 	hal_fem_ppi_setup();
+ #endif
++#endif
+ }
+ 
+ void radio_stop(void)
+@@ -1984,8 +1990,12 @@ void radio_gpio_pa_lna_disable(void)
+ 					   BIT(HAL_ENABLE_FEM_PPI) |
+ 					   BIT(HAL_DISABLE_FEM_PPI));
+ 	gpiote_palna.p_reg->CONFIG[gpiote_ch_palna] = 0;
++#if defined(NRF_GPIO_PDN_PIN)
+ 	gpiote_pdn.p_reg->CONFIG[gpiote_ch_pdn] = 0;
++#endif
++#if defined(NRF_GPIO_CSN_PIN)
+ 	gpiote_csn.p_reg->CONFIG[gpiote_ch_csn] = 0;
++#endif
+ #else
+ 	hal_radio_nrf_ppi_channels_disable(BIT(HAL_ENABLE_PALNA_PPI) |
+ 					   BIT(HAL_DISABLE_PALNA_PPI));
+diff --git a/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/radio_nrf5_ppi_gpiote.h b/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/radio_nrf5_ppi_gpiote.h
+index ec3c11fea1b..4de7cd19578 100644
+--- a/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/radio_nrf5_ppi_gpiote.h
++++ b/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/radio_nrf5_ppi_gpiote.h
+@@ -33,7 +33,7 @@ static inline void hal_lna_ppi_setup(void)
+ {
+ 	/* Nothing specific to LNA with FEM to handle inside TRX chains */
+ }
+-
++#if defined(NRF_GPIO_PDN_PIN) && defined(NRF_GPIO_CSN_PIN)
+ static inline void hal_fem_ppi_setup(void)
+ {
+ 	nrf_ppi_channel_and_fork_endpoint_setup(
+@@ -49,5 +49,5 @@ static inline void hal_fem_ppi_setup(void)
+ 		(uint32_t)&(gpiote_pdn.p_reg->TASKS_OUT[gpiote_ch_pdn]),
+ 		(uint32_t)&(gpiote_csn.p_reg->TASKS_OUT[gpiote_ch_csn]));
+ }
+-
++#endif
+ #endif /* HAL_RADIO_FEM_IS_NRF21540 */

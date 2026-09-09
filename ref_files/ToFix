@@ -1,0 +1,12 @@
+2024-04-16
+1. make it possible to exit the BT application with elegancy -> to-do 
+
+2. add support to switch between BLE-server and BLE-client in the process of application running  -> to-do         
+
+3. to speed up the data transporation of BLE-uart -> to-do
+
+...
+
+
+
+//_________________________________________

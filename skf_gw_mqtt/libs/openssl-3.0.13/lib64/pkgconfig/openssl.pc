@@ -1,0 +1,9 @@
+prefix=/home/forlinx/work/temp/install/openssl-3.0.13
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib64
+includedir=${prefix}/include
+
+Name: OpenSSL
+Description: Secure Sockets Layer and cryptography libraries and tools
+Version: 3.0.13
+Requires: libssl libcrypto

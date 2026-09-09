@@ -1,0 +1,104 @@
+{
+	"_AboutFileName": "The file name is expected to be named in a bulletGW+nameId+macAddr format.",
+	"version": 1,
+	"lastEditTime": 1710399747,
+	"_lastEditTime": "The unix timestamp (GMT time) of last edit time.",
+	"gwConfig": {
+		"type": "BulletGW",
+		"_type": "The product name/type (readonly)",
+		"manufacturer": "SKF",
+		"_manufacturer": "The manufacturer of the product (readonly)",
+		"name": "FAN zone 1",
+		"_name": "A readable name of the gateway",
+		"nameId": 311978254,
+		"_nameId": "A 4-byte hash ID to avoid the same name. nameId is the index.",
+		"macAddr": "C4-BD-6A-12-34-56",
+		"_macAddr": "BLE MAC address of the gateway (separated by dashes) (readonly)",
+		"gatewayMode": 1,
+		"_gatewayMode": "The working mode of the gateway. 0: Just forwarding beacons; 1: Regular mode.",
+		"BLEConfig": {
+			"BLE1TxPower": 0,
+			"_BLE1TxPower": "0 dBm/-4 dBm/-8 dBm. The tx power (dBm) of BLE1",
+			"BLE2TxPower": 0,
+			"_BLE2TxPower": "0 dBm/-4 dBm/-8 dBm. The tx power (dBm) of BLE2",
+			"BLE1Antenna": 0,
+			"_BLE1Antenna": "0: built-in antenna, 1: external antenna. The antenna of BLE1.",
+			"BLE2Antenna": 0,
+			"_BLE2Antenna": "0: built-in antenna, 1: external antenna. The antenna of BLE1.",
+			"BLEDuplicatedDrop": 1000,
+			"_BLEDuplicatedDrop": "The time duration (in ms) for duplicated content dropping"
+		},
+		"timeConfig": {
+			"timeStamp": true,
+			"_timeStamp": "Whether timestamp required for the received beacon",
+			"timeSetting": 1,
+			"_timeSetting": "0: time of gateway needs to be configured via BLE; 1: time would be fetched from an NTP server.",
+			"timeNTPUrl": "ntp1.nim.ac.cn",
+			"_timeNTPUrl": "NTP URL for time synchronization (only valid when TimeSetting is 1)"
+		},
+		"MQTTConfig": {
+			"MQTTSecurityType": 0,
+			"_MQTTSecurityType": "0: no security for debug; 1: username and password; 2: TLS; 3: username and password with TLS. Cert file needs to be sent in other files. User name and password need to be configured using Froto via BLE.",
+			"MQTTHost": "mqtt-dp.skf4u.com",
+			"_MQTTHost": "MQTT host",
+			"MQTTPort": 1883,
+			"_MQTTPort": "port of the MQTT service"
+		},
+		"IPConfig": {
+			"DHCPEnable": true,
+			"_DHCPEnable": "If using static IP address, DHCPEnable should be set to false.",
+			"staticIPAddr": "10.1.0.1",
+			"_staticIPAddr": "The static IP address (separated by full stop). (if DHCP is disable)",
+			"netMask": "255.255.255.0",
+			"_netMask": "The net mask (separated by full stop). (if DHCP is disable)",
+			"DNSServer": "8.8.8.8",
+			"_DNSServer": "The DNS server. (would be override if given)"
+		},
+		"childrenNumber": 3,
+		"_childrenNumber": "The number of sensors managed by the gateway",
+		"children": [
+			{
+				"type": "BulletSensor",
+				"_type": "The product name/type",
+				"manufacturer": "SKF",
+				"_manufacturer": "The manufacturer of the product",
+				"name": "FAN point #1",
+				"_name": "A readable name of the sensor",
+				"nameId": 311978255,
+				"_nameId": "A 4-byte hash ID to avoid the same name. nameId is the index.",
+				"BLESensorName": "FANSEN3457",
+				"_BLESensorName": "BLE name of the sensor (not mandatory)",
+				"macAddr": "C4-BD-6A-12-34-57",
+				"_macAddr": "BLE MAC address of the sensor (separated by dashes)"
+			},
+			{
+				"type": "BulletSensor",
+				"_type": "The product name/type",
+				"manufacturer": "SKF",
+				"_manufacturer": "The manufacturer of the product",
+				"name": "FAN point #2",
+				"_name": "A readable name of the sensor",
+				"nameId": 311978256,
+				"_nameId": "A 4-byte hash ID to avoid the same name. nameId is the index.",
+				"BLESensorName": "FANSEN3458",
+				"_BLESensorName": "BLE name of the sensor (not mandatory)",
+				"macAddr": "C4-BD-6A-12-34-58",
+				"_macAddr": "BLE MAC address of the sensor (separated by dashes)"
+			},
+			{
+				"type": "BulletSensor",
+				"_type": "The product name/type",
+				"manufacturer": "SKF",
+				"_manufacturer": "The manufacturer of the product",
+				"name": "FAN point #3",
+				"_name": "A readable name of the sensor",
+				"nameId": 311978257,
+				"_nameId": "A 4-byte hash ID to avoid the same name. nameId is the index.",
+				"BLESensorName": "FANSEN3459",
+				"_BLESensorName": "BLE name of the sensor (not mandatory)",
+				"macAddr": "C4-BD-6A-12-34-59",
+				"_macAddr": "BLE MAC address of the sensor (separated by dashes)"
+			}
+		]
+	}
+}

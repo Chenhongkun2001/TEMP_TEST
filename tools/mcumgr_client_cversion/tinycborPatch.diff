@@ -1,0 +1,23 @@
+diff --git a/toolchain-arm.cmake b/toolchain-arm.cmake
+new file mode 100644
+index 0000000..ef48b2f
+--- /dev/null
++++ b/toolchain-arm.cmake
+@@ -0,0 +1,17 @@
++
++# To setup the tool chain ...
++set(CMAKE_SYSTEM_NAME Linux)
++set(CMAKE_SYSTEM_PROCESSOR arm)
++
++set(TOOLCHAIN_DIR "/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu")
++set(CMAKE_CXX_COMPILER ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-g++)
++set(CMAKE_C_COMPILER ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-gcc)
++set(CMAKE_ASM_COMPILER ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-as)
++set(CMAKE_LINKER ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-ld)
++set(CMAKE_AR ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-ar)
++set(CMAKE_OBJCOPY ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-objcopy)
++set(CMAKE_STRIP ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-strip)
++set(CMAKE_OBJDUMP ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-objdump)
++set(CMAKE_NM ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-nm)
++
++

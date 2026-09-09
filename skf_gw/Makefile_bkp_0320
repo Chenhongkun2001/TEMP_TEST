@@ -1,0 +1,40 @@
+CC = gcc
+LDFLAGS = -L/usr/local/lib -L/usr/lib/arm-linux-gnueabihf
+LDLIBS = -lell -ldl
+INC = -I/usr/local/include/ell/
+
+obj_common_files = util_dbg.o sys_def.o bt_common.o sys_timer.o bt_advertising.o bt_connection.o bt_agent.o bt_gatt.o
+src_common_files = util_dbg.c sys_def.c bt_common.c sys_timer.c bt_advertising.c
+
+obj_files = bt_test_device_discov.o util_dbg.o sys_def.o bt_common.o sys_timer.o bt_advertising.o test_le_advertisement.o bt_connection.o bt_gatt.o
+#obj_files = ${obj_files} bt_connection.o
+
+src_files = bt_test_device_discov.c util_dbg.c sys_def.c bt_common.c sys_timer.c bt_advertising.c
+
+
+obj_test_le_advertisement_files = ${obj_common_files} test_le_advertisement.o
+obj_skf_gw_files = ${obj_common_files} bt_test_device_discov.o
+
+obj_test_le_connect_files = ${obj_common_files} test_le_connect.o
+
+skf_gw:${obj_skf_gw_files}
+	$(CC) $(obj_skf_gw_files) $(LDFLAGS) $(LDLIBS) -o skf_gw
+
+test_le_advertisement:${obj_test_le_advertisement_files}
+	echo "======go compile app for LE advertisement==========="
+	$(CC) $(obj_test_le_advertisement_files) $(LDFLAGS) $(LDLIBS) -o test_le_advertisement
+
+test_le_connect:${obj_test_le_connect_files}
+	$(CC) $(obj_test_le_connect_files) $(LDFLAGS) $(LDLIBS) -o test_le_connect
+	
+.PHONY:all
+$(filter %.o, %(obj_files)):%.o:%.c
+	echo "target:$@ prereq:$<"
+
+clean:
+	rm ${obj_files}
+
+
+
+
+

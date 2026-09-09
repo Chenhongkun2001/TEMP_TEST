@@ -1,0 +1,1349 @@
+Consolidate compiler generated dependencies of target skf_gw
+[  1%] Building C object CMakeFiles/skf_gw.dir/source/src/general/sensorInterface/sensor_interface_insight_predict.c.o
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:12,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface.h:15:10: warning: 'struct sensor_interface' declared inside parameter list will not be visible outside of this definition or declaration
+   15 |   struct sensor_interface *si,
+      |          ^~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface.h:19:10: warning: 'struct sensor_interface' declared inside parameter list will not be visible outside of this definition or declaration
+   19 |   struct sensor_interface *si,
+      |          ^~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface.h:23:10: warning: 'struct sensor_interface' declared inside parameter list will not be visible outside of this definition or declaration
+   23 |   struct sensor_interface *si,
+      |          ^~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface.h:27:10: warning: 'struct sensor_interface' declared inside parameter list will not be visible outside of this definition or declaration
+   27 |   struct sensor_interface *si,
+      |          ^~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface.h:31:10: warning: 'struct sensor_interface' declared inside parameter list will not be visible outside of this definition or declaration
+   31 |   struct sensor_interface *si,
+      |          ^~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface.h:35:10: warning: 'struct sensor_interface' declared inside parameter list will not be visible outside of this definition or declaration
+   35 |   struct sensor_interface *si,
+      |          ^~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface.h:40:10: warning: 'struct sensor_interface' declared inside parameter list will not be visible outside of this definition or declaration
+   40 |   struct sensor_interface *si,
+      |          ^~~~~~~~~~~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw_mqtt/middleware/common/global.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/app_db.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:23:
+/home/forlinx/GW/GW/skf_gw_mqtt/middleware/common/auxiliar.h:31:34: warning: 'struct msgbuf' declared inside parameter list will not be visible outside of this definition or declaration
+   31 | uint8_t send_msg(int qid, struct msgbuf *msg, size_t __msgsz);
+      |                                  ^~~~~~
+/home/forlinx/GW/GW/skf_gw_mqtt/middleware/common/auxiliar.h:32:34: warning: 'struct msgbuf' declared inside parameter list will not be visible outside of this definition or declaration
+   32 | uint8_t recv_msg(int qid, struct msgbuf *msg, uint8_t msgtyp);
+      |                                  ^~~~~~
+/home/forlinx/GW/GW/skf_gw_mqtt/middleware/common/auxiliar.h:33:35: warning: 'struct msgbuf' declared inside parameter list will not be visible outside of this definition or declaration
+   33 | uint8_t recv_msg1(int qid, struct msgbuf *msg, uint8_t msgtyp);
+      |                                   ^~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/general/app_db.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:23:
+/home/forlinx/GW/GW/skf_gw_mqtt/middleware/common/global.h:206:3: error: invalid preprocessing directive #mqtt_op
+  206 | # mqtt_op/sql_op/skf_gw_1 run as the same dedicated user, so the msg queue can be shared by them
+      |   ^~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/general/app_db.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:23:
+/home/forlinx/GW/GW/skf_gw/source/include/util_froto.h:17: warning: "MAX_ID_STR_LENGTH" redefined
+   17 | #define MAX_ID_STR_LENGTH       (0x10)
+      | 
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:85: note: this is the location of the previous definition
+   85 | #define MAX_ID_STR_LENGTH (32U) // 32 bytes
+      | 
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:25:1: warning: 'static' is not at beginning of declaration [-Wold-style-declaration]
+   25 | DBG_LOCAL_LOG_DEBUG
+      | ^~~~~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'registerSensorIntfInsightPredict':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:317:35: warning: assignment to 'si_exchange_general_info_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} from incompatible pointer type '_Bool (*)(struct sensor_interface *, void *, uint8_t *)' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} [-Wincompatible-pointer-types]
+  317 |   sensorIntf->exchangeGeneralInfo = exchangeGenInfo;
+      |                                   ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:318:27: warning: assignment to 'si_collect_data_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} from incompatible pointer type '_Bool (*)(struct sensor_interface *, void *, uint8_t *)' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} [-Wincompatible-pointer-types]
+  318 |   sensorIntf->collectData = collectData;
+      |                           ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:319:23: warning: assignment to 'si_send_command_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} from incompatible pointer type '_Bool (*)(struct sensor_interface *, void *, uint8_t *)' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} [-Wincompatible-pointer-types]
+  319 |   sensorIntf->sendCmd = sendCmd;
+      |                       ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:320:28: warning: assignment to 'si_update_config_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} from incompatible pointer type '_Bool (*)(struct sensor_interface *, void *, uint8_t *)' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} [-Wincompatible-pointer-types]
+  320 |   sensorIntf->updateConfig = updateConfig;
+      |                            ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:321:21: warning: assignment to 'si_fuota_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} from incompatible pointer type '_Bool (*)(struct sensor_interface *, void *, uint8_t *)' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned char *)'} [-Wincompatible-pointer-types]
+  321 |   sensorIntf->fuota = fuota;
+      |                     ^
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:334:7: note: in expansion of macro 'DBG_LOG_ERR'
+  334 |       DBG_LOG_ERR("Failed to initialize mutex");
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:334:7: note: in expansion of macro 'DBG_LOG_ERR'
+  334 |       DBG_LOG_ERR("Failed to initialize mutex");
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:343:7: note: in expansion of macro 'DBG_LOG_ERR'
+  343 |       DBG_LOG_ERR("Failed to initialize mutex");
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:343:7: note: in expansion of macro 'DBG_LOG_ERR'
+  343 |       DBG_LOG_ERR("Failed to initialize mutex");
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:352:7: note: in expansion of macro 'DBG_LOG_ERR'
+  352 |       DBG_LOG_ERR("Failed to initialize mutex");
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:352:7: note: in expansion of macro 'DBG_LOG_ERR'
+  352 |       DBG_LOG_ERR("Failed to initialize mutex");
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:361:7: note: in expansion of macro 'DBG_LOG_ERR'
+  361 |       DBG_LOG_ERR("Failed to initialize mutex");
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:361:7: note: in expansion of macro 'DBG_LOG_ERR'
+  361 |       DBG_LOG_ERR("Failed to initialize mutex");
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:315:12: warning: unused parameter 'errCode' [-Wunused-parameter]
+  315 |   uint8_t *errCode)
+      |   ~~~~~~~~~^~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'unregisterSensorIntfInsightPredict':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:383:12: warning: unused parameter 'errCode' [-Wunused-parameter]
+  383 |   uint8_t *errCode)
+      |   ~~~~~~~~~^~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'exchangeGenInfo':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:488:18: warning: passing argument 4 of 'app_froto_n_simple_send' from incompatible pointer type [-Wincompatible-pointer-types]
+  488 |        sensorIntf->send,
+      |        ~~~~~~~~~~^~~~~~
+      |                  |
+      |                  send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:78:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   78 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:537:18: warning: passing argument 5 of 'app_froto_n_send_with_reply' from incompatible pointer type [-Wincompatible-pointer-types]
+  537 |        sensorIntf->send,
+      |        ~~~~~~~~~~^~~~~~
+      |                  |
+      |                  send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:85:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   85 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:418:9: warning: unused parameter 'user_data' [-Wunused-parameter]
+  418 |   void *user_data,
+      |   ~~~~~~^~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:419:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+  419 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'collectData':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:635:9: warning: type defaults to 'int' in declaration of 'retrieveTimeout_s' [-Wimplicit-int]
+  635 |   const retrieveTimeout_s = 20;  // original 3
+      |         ^~~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:675:7: warning: passing argument 2 of 'app_froto_n_encode_msg_data_selection' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  675 |       &collectDataGroup[i],
+      |       ^~~~~~~~~~~~~~~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:15:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/encoder/app_froto_data_selection_encoder.h:18:36: note: expected 'SKFChina_Common_MeasurementType *' {aka 'enum _SKFChina_Common_MeasurementType *'} but argument is of type 'const SKFChina_Common_MeasurementType *' {aka 'const enum _SKFChina_Common_MeasurementType *'}
+   18 |   SKFChina_Common_MeasurementType *measurementType,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:677:7: warning: passing argument 4 of 'app_froto_n_encode_msg_data_selection' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  677 |       &sensorType[i],
+      |       ^~~~~~~~~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:15:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/encoder/app_froto_data_selection_encoder.h:20:31: note: expected 'SKFChina_Common_SensorType *' {aka 'enum _SKFChina_Common_SensorType *'} but argument is of type 'const SKFChina_Common_SensorType *' {aka 'const enum _SKFChina_Common_SensorType *'}
+   20 |   SKFChina_Common_SensorType *sensorType,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:710:20: warning: passing argument 5 of 'app_froto_n_send_with_reply' from incompatible pointer type [-Wincompatible-pointer-types]
+  710 |          sensorIntf->send,
+      |          ~~~~~~~~~~^~~~~~
+      |                    |
+      |                    send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:85:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   85 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:737:21: warning: argument to 'sizeof' in 'strncpy' call is the same expression as the source; did you mean to use the size of the destination? [-Wsizeof-pointer-memaccess]
+  737 |               sizeof(sensorIntf->sensorBLEName));
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:736:15: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+  736 |       strncpy(data_item_sensor_name, sensorIntf->sensorBLEName,
+      |               ^~~~~~~~~~~~~~~~~~~~~
+      |               |
+      |               uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:736:48: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+  736 |       strncpy(data_item_sensor_name, sensorIntf->sensorBLEName,
+      |                                      ~~~~~~~~~~^~~~~~~~~~~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:739:21: warning: argument to 'sizeof' in 'strncpy' call is the same expression as the source; did you mean to use the size of the destination? [-Wsizeof-pointer-memaccess]
+  739 |               sizeof(sensorIntf->sensorPrductType));
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:738:15: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+  738 |       strncpy(data_item_sensor_type, sensorIntf->sensorPrductType,
+      |               ^~~~~~~~~~~~~~~~~~~~~
+      |               |
+      |               uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:738:48: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+  738 |       strncpy(data_item_sensor_type, sensorIntf->sensorPrductType,
+      |                                      ~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:741:21: warning: argument to 'sizeof' in 'strncpy' call is the same expression as the source; did you mean to use the size of the destination? [-Wsizeof-pointer-memaccess]
+  741 |               sizeof(sensorIntf->sensorManufacturer));
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:740:15: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+  740 |       strncpy(data_item_manufacturer, sensorIntf->sensorManufacturer,
+      |               ^~~~~~~~~~~~~~~~~~~~~~
+      |               |
+      |               uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:740:49: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+  740 |       strncpy(data_item_manufacturer, sensorIntf->sensorManufacturer,
+      |                                       ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+      |                                                 |
+      |                                                 uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:820:19: warning: format '%u' expects argument of type 'unsigned int', but argument 2 has type 'uint64_t' {aka 'long unsigned int'} [-Wformat=]
+  820 |     DBG_LOG_DEBUG("lastRegularSensingTs: %u", lastRegularSensingTs);
+      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~
+      |                                               |
+      |                                               uint64_t {aka long unsigned int}
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:222:12: note: in definition of macro 'UTIL_LOG_DEBUG'
+  222 |     printf(__VA_ARGS__);                                      \
+      |            ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:820:5: note: in expansion of macro 'DBG_LOG_DEBUG'
+  820 |     DBG_LOG_DEBUG("lastRegularSensingTs: %u", lastRegularSensingTs);
+      |     ^~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:820:43: note: format string is defined here
+  820 |     DBG_LOG_DEBUG("lastRegularSensingTs: %u", lastRegularSensingTs);
+      |                                          ~^
+      |                                           |
+      |                                           unsigned int
+      |                                          %lu
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:826:19: warning: format '%d' expects argument of type 'int', but argument 2 has type 'uint64_t' {aka 'long unsigned int'} [-Wformat=]
+  826 |     DBG_LOG_DEBUG("current time: %d", kp_tstamp);
+      |                   ^~~~~~~~~~~~~~~~~~  ~~~~~~~~~
+      |                                       |
+      |                                       uint64_t {aka long unsigned int}
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:222:12: note: in definition of macro 'UTIL_LOG_DEBUG'
+  222 |     printf(__VA_ARGS__);                                      \
+      |            ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:826:5: note: in expansion of macro 'DBG_LOG_DEBUG'
+  826 |     DBG_LOG_DEBUG("current time: %d", kp_tstamp);
+      |     ^~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:826:35: note: format string is defined here
+  826 |     DBG_LOG_DEBUG("current time: %d", kp_tstamp);
+      |                                  ~^
+      |                                   |
+      |                                   int
+      |                                  %ld
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:836:21: warning: format '%u' expects argument of type 'unsigned int', but argument 2 has type 'uint64_t' {aka 'long unsigned int'} [-Wformat=]
+  836 |       DBG_LOG_DEBUG("lastRegularSensingTs (computed): %u", expLastRegularSensingTs);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                            |
+      |                                                            uint64_t {aka long unsigned int}
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:222:12: note: in definition of macro 'UTIL_LOG_DEBUG'
+  222 |     printf(__VA_ARGS__);                                      \
+      |            ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:836:7: note: in expansion of macro 'DBG_LOG_DEBUG'
+  836 |       DBG_LOG_DEBUG("lastRegularSensingTs (computed): %u", expLastRegularSensingTs);
+      |       ^~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:836:56: note: format string is defined here
+  836 |       DBG_LOG_DEBUG("lastRegularSensingTs (computed): %u", expLastRegularSensingTs);
+      |                                                       ~^
+      |                                                        |
+      |                                                        unsigned int
+      |                                                       %lu
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:977:16: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+  977 |       snprintf(sensorAddrStr, sizeof(sensorAddrStr),
+      |                ^~~~~~~~~~~~~
+      |                |
+      |                uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/cjson/list.h:19,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/cjson/gwConfig.h:14,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:16,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/stdio.h:378:39: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  378 | extern int snprintf (char *__restrict __s, size_t __maxlen,
+      |                      ~~~~~~~~~~~~~~~~~^~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:997:34: warning: passing argument 1 of 'is_dtitem_in_db' from incompatible pointer type [-Wincompatible-pointer-types]
+  997 |       if(true == is_dtitem_in_db(&di, sensorAddrStr))
+      |                                  ^~~
+      |                                  |
+      |                                  struct db_data_item *
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:23:
+/home/forlinx/GW/GW/skf_gw/source/include/general/app_db.h:184:27: note: expected 'const struct data_item *' but argument is of type 'struct db_data_item *'
+  184 |   const struct data_item *pt_dtitem,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1011:7: warning: passing argument 2 of 'app_froto_n_encode_msg_data_selection' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+ 1011 |       &collectDataGroup[i],
+      |       ^~~~~~~~~~~~~~~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:15:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/encoder/app_froto_data_selection_encoder.h:18:36: note: expected 'SKFChina_Common_MeasurementType *' {aka 'enum _SKFChina_Common_MeasurementType *'} but argument is of type 'const SKFChina_Common_MeasurementType *' {aka 'const enum _SKFChina_Common_MeasurementType *'}
+   18 |   SKFChina_Common_MeasurementType *measurementType,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1013:7: warning: passing argument 4 of 'app_froto_n_encode_msg_data_selection' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+ 1013 |       &sensorType[i],
+      |       ^~~~~~~~~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:15:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/encoder/app_froto_data_selection_encoder.h:20:31: note: expected 'SKFChina_Common_SensorType *' {aka 'enum _SKFChina_Common_SensorType *'} but argument is of type 'const SKFChina_Common_SensorType *' {aka 'const enum _SKFChina_Common_SensorType *'}
+   20 |   SKFChina_Common_SensorType *sensorType,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1044:20: warning: passing argument 5 of 'app_froto_n_send_with_multiple_replies_first_half' from incompatible pointer type [-Wincompatible-pointer-types]
+ 1044 |          sensorIntf->send,
+      |          ~~~~~~~~~~^~~~~~
+      |                    |
+      |                    send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:102:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+  102 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1074:21: warning: argument to 'sizeof' in 'strncpy' call is the same expression as the source; did you mean to use the size of the destination? [-Wsizeof-pointer-memaccess]
+ 1074 |               sizeof(sensorIntf->sensorBLEName));
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1073:15: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1073 |       strncpy(data_item_sensor_name, sensorIntf->sensorBLEName,
+      |               ^~~~~~~~~~~~~~~~~~~~~
+      |               |
+      |               uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1073:48: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1073 |       strncpy(data_item_sensor_name, sensorIntf->sensorBLEName,
+      |                                      ~~~~~~~~~~^~~~~~~~~~~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1076:21: warning: argument to 'sizeof' in 'strncpy' call is the same expression as the source; did you mean to use the size of the destination? [-Wsizeof-pointer-memaccess]
+ 1076 |               sizeof(sensorIntf->sensorPrductType));
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1075:15: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1075 |       strncpy(data_item_sensor_type, sensorIntf->sensorPrductType,
+      |               ^~~~~~~~~~~~~~~~~~~~~
+      |               |
+      |               uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1075:48: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1075 |       strncpy(data_item_sensor_type, sensorIntf->sensorPrductType,
+      |                                      ~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1078:21: warning: argument to 'sizeof' in 'strncpy' call is the same expression as the source; did you mean to use the size of the destination? [-Wsizeof-pointer-memaccess]
+ 1078 |               sizeof(sensorIntf->sensorManufacturer));
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1077:15: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1077 |       strncpy(data_item_manufacturer, sensorIntf->sensorManufacturer,
+      |               ^~~~~~~~~~~~~~~~~~~~~~
+      |               |
+      |               uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1077:49: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1077 |       strncpy(data_item_manufacturer, sensorIntf->sensorManufacturer,
+      |                                       ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+      |                                                 |
+      |                                                 uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1122:43: warning: assignment to 'struct data_item *' from incompatible pointer type 'struct db_data_item *' [-Wincompatible-pointer-types]
+ 1122 |             pt_op_msg->cmd_para.pt_dtitem = data_item;
+      |                                           ^
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1128:13: note: in expansion of macro 'DBG_LOG_ERR'
+ 1128 |             DBG_LOG_ERR("Failed to malloc");
+      |             ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1128:13: note: in expansion of macro 'DBG_LOG_ERR'
+ 1128 |             DBG_LOG_ERR("Failed to malloc");
+      |             ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1196:15: note: in expansion of macro 'DBG_LOG_ERR'
+ 1196 |               DBG_LOG_ERR("bulkDataBuf is NULL for unknown reason");
+      |               ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1196:15: note: in expansion of macro 'DBG_LOG_ERR'
+ 1196 |               DBG_LOG_ERR("bulkDataBuf is NULL for unknown reason");
+      |               ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1197:15: note: in expansion of macro 'DBG_LOG_ERR'
+ 1197 |               DBG_LOG_ERR("bulkData @ %p, bulkDataBuf @ %p", bulkData, bulkDataBuf);
+      |               ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1197:15: note: in expansion of macro 'DBG_LOG_ERR'
+ 1197 |               DBG_LOG_ERR("bulkData @ %p, bulkDataBuf @ %p", bulkData, bulkDataBuf);
+      |               ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1233:55: warning: assignment to 'struct data_item *' from incompatible pointer type 'struct db_data_item *' [-Wincompatible-pointer-types]
+ 1233 |                         pt_op_msg->cmd_para.pt_dtitem = data_item;
+      |                                                       ^
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1239:25: note: in expansion of macro 'DBG_LOG_ERR'
+ 1239 |                         DBG_LOG_ERR("Failed to malloc");
+      |                         ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1239:25: note: in expansion of macro 'DBG_LOG_ERR'
+ 1239 |                         DBG_LOG_ERR("Failed to malloc");
+      |                         ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1254:19: note: in expansion of macro 'DBG_LOG_ERR'
+ 1254 |                   DBG_LOG_ERR(
+      |                   ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1254:19: note: in expansion of macro 'DBG_LOG_ERR'
+ 1254 |                   DBG_LOG_ERR(
+      |                   ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1267:21: note: in expansion of macro 'DBG_LOG_ERR'
+ 1267 |                     DBG_LOG_ERR("data_item is null! The fist packet missed, then abort receiving!\n");
+      |                     ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1267:21: note: in expansion of macro 'DBG_LOG_ERR'
+ 1267 |                     DBG_LOG_ERR("data_item is null! The fist packet missed, then abort receiving!\n");
+      |                     ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1287:17: note: in expansion of macro 'DBG_LOG_ERR'
+ 1287 |                 DBG_LOG_ERR("data_item is null! then abort receiving!\n");
+      |                 ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1287:17: note: in expansion of macro 'DBG_LOG_ERR'
+ 1287 |                 DBG_LOG_ERR("data_item is null! then abort receiving!\n");
+      |                 ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1311:13: note: in expansion of macro 'DBG_LOG_ERR'
+ 1311 |             DBG_LOG_ERR("_skip_pkt_fg is true and no more long data collect retry %d\n", _attempt);
+      |             ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1311:13: note: in expansion of macro 'DBG_LOG_ERR'
+ 1311 |             DBG_LOG_ERR("_skip_pkt_fg is true and no more long data collect retry %d\n", _attempt);
+      |             ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1325:9: note: in expansion of macro 'DBG_LOG_ERR'
+ 1325 |         DBG_LOG_ERR("_skip_pkt_fg is true and no more long data collect retry %d\n", _attempt);
+      |         ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1325:9: note: in expansion of macro 'DBG_LOG_ERR'
+ 1325 |         DBG_LOG_ERR("_skip_pkt_fg is true and no more long data collect retry %d\n", _attempt);
+      |         ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:624:9: warning: unused parameter 'user_data' [-Wunused-parameter]
+  624 |   void *user_data,
+      |   ~~~~~~^~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:625:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+  625 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'sendCmd':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1414:20: warning: passing argument 4 of 'app_froto_n_simple_send' from incompatible pointer type [-Wincompatible-pointer-types]
+ 1414 |          sensorIntf->send,
+      |          ~~~~~~~~~~^~~~~~
+      |                    |
+      |                    send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:78:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   78 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1349:9: warning: unused parameter 'user_data' [-Wunused-parameter]
+ 1349 |   void *user_data,
+      |   ~~~~~~^~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1350:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 1350 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'updateConfig':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1505:21: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1505 |   strncpy(sensorIntf->sensorManufacturer, sensorCfg.manufacturer,
+      |           ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1507:21: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1507 |   strncpy(sensorIntf->sensorPrductType, sensorCfg.type,
+      |           ~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1510:21: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+ 1510 |   if((strlen(fw_info.fpath) != 0) &&
+      |              ~~~~~~~^~~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:407:35: note: expected 'const char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  407 | extern size_t strlen (const char *__s)
+      |                       ~~~~~~~~~~~~^~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1511:21: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+ 1511 |      (strlen(fw_info.fpath) < (sizeof(sensorIntf->imageFwVerPath) - 1)))
+      |              ~~~~~~~^~~~~~
+      |                     |
+      |                     uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:407:35: note: expected 'const char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  407 | extern size_t strlen (const char *__s)
+      |                       ~~~~~~~~~~~~^~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1515:23: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1515 |     strncpy(sensorIntf->imageFwVerPath, fw_info.fpath,
+      |             ~~~~~~~~~~^~~~~~~~~~~~~~~~
+      |                       |
+      |                       uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1515:48: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 1515 |     strncpy(sensorIntf->imageFwVerPath, fw_info.fpath,
+      |                                         ~~~~~~~^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1527:12: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+ 1527 |   snprintf(gwAddrStr, sizeof(gwAddrStr),
+      |            ^~~~~~~~~
+      |            |
+      |            uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/cjson/list.h:19,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/cjson/gwConfig.h:14,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:16,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/stdio.h:378:39: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  378 | extern int snprintf (char *__restrict __s, size_t __maxlen,
+      |                      ~~~~~~~~~~~~~~~~~^~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1538:63: warning: pointer targets in passing argument 2 of 'util_froto_cal_config_hash_value' differ in signedness [-Wpointer-sign]
+ 1538 |                                                               gwAddrStr);
+      |                                                               ^~~~~~~~~
+      |                                                               |
+      |                                                               uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/general/app_db.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:23:
+/home/forlinx/GW/GW/skf_gw/source/include/util_froto.h:195:9: note: expected 'char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  195 |   char *clientID);
+      |   ~~~~~~^~~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1539:16: warning: format '%llu' expects argument of type 'long long unsigned int', but argument 2 has type 'uint32_t' {aka 'unsigned int'} [-Wformat=]
+ 1539 |   DBG_LOG_INFO("Local config hash is %llu", sensorIntf->configHashDB);
+      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                       |
+      |                                                       uint32_t {aka unsigned int}
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:236:12: note: in definition of macro 'UTIL_LOG_INFO'
+  236 |     printf(__VA_ARGS__);                                      \
+      |            ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1539:3: note: in expansion of macro 'DBG_LOG_INFO'
+ 1539 |   DBG_LOG_INFO("Local config hash is %llu", sensorIntf->configHashDB);
+      |   ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1539:41: note: format string is defined here
+ 1539 |   DBG_LOG_INFO("Local config hash is %llu", sensorIntf->configHashDB);
+      |                                      ~~~^
+      |                                         |
+      |                                         long long unsigned int
+      |                                      %u
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1590:18: warning: passing argument 5 of 'app_froto_n_send_with_reply' from incompatible pointer type [-Wincompatible-pointer-types]
+ 1590 |        sensorIntf->send,
+      |        ~~~~~~~~~~^~~~~~
+      |                  |
+      |                  send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:85:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   85 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1765:22: warning: passing argument 5 of 'app_froto_n_send_with_reply' from incompatible pointer type [-Wincompatible-pointer-types]
+ 1765 |            sensorIntf->send,
+      |            ~~~~~~~~~~^~~~~~
+      |                      |
+      |                      send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:85:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   85 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1817:63: warning: pointer targets in passing argument 2 of 'util_froto_cal_config_hash_value' differ in signedness [-Wpointer-sign]
+ 1817 |               if(util_froto_cal_config_hash_value(&sensorCfg, gwAddrStr) ==
+      |                                                               ^~~~~~~~~
+      |                                                               |
+      |                                                               uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/general/app_db.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:23:
+/home/forlinx/GW/GW/skf_gw/source/include/util_froto.h:195:9: note: expected 'char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  195 |   char *clientID);
+      |   ~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1922:22: warning: passing argument 4 of 'app_froto_n_simple_send' from incompatible pointer type [-Wincompatible-pointer-types]
+ 1922 |            sensorIntf->send,
+      |            ~~~~~~~~~~^~~~~~
+      |                      |
+      |                      send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:78:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   78 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1957:7: warning: passing argument 5 of 'app_froto_n_encode_msg_config_retrieve' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+ 1957 |       &specificItemGroup[i],
+      |       ^~~~~~~~~~~~~~~~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:17:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/encoder/app_froto_config_encoder.h:36:39: note: expected 'SKFChina_Common_SpecificConfigItem *' {aka 'enum _SKFChina_Common_SpecificConfigItem *'} but argument is of type 'const SKFChina_Common_SpecificConfigItem *' {aka 'const enum _SKFChina_Common_SpecificConfigItem *'}
+   36 |   SKFChina_Common_SpecificConfigItem *specificConfigItem,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1981:20: warning: passing argument 5 of 'app_froto_n_send_with_reply' from incompatible pointer type [-Wincompatible-pointer-types]
+ 1981 |          sensorIntf->send,
+      |          ~~~~~~~~~~^~~~~~
+      |                    |
+      |                    send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:85:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   85 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:2110:7: warning: passing argument 5 of 'app_froto_n_encode_msg_config_retrieve' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+ 2110 |       &specificItemGroup[0],
+      |       ^~~~~~~~~~~~~~~~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:17:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/encoder/app_froto_config_encoder.h:36:39: note: expected 'SKFChina_Common_SpecificConfigItem *' {aka 'enum _SKFChina_Common_SpecificConfigItem *'} but argument is of type 'const SKFChina_Common_SpecificConfigItem *' {aka 'const enum _SKFChina_Common_SpecificConfigItem *'}
+   36 |   SKFChina_Common_SpecificConfigItem *specificConfigItem,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:2132:20: warning: passing argument 5 of 'app_froto_n_send_with_reply' from incompatible pointer type [-Wincompatible-pointer-types]
+ 2132 |          sensorIntf->send,
+      |          ~~~~~~~~~~^~~~~~
+      |                    |
+      |                    send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:85:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   85 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1552:32: warning: unused variable '_configPair' [-Wunused-variable]
+ 1552 |   protobuf_codec_config_pair_t _configPair;
+      |                                ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1452:41: warning: variable 'pt_db_op_ctr' set but not used [-Wunused-but-set-variable]
+ 1452 |   struct database_operation_controller *pt_db_op_ctr = NULL;
+      |                                         ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1441:9: warning: unused parameter 'user_data' [-Wunused-parameter]
+ 1441 |   void *user_data,
+      |   ~~~~~~^~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:1442:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 1442 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'map_conf_item_to_content':
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3727:7: note: in expansion of macro 'DBG_LOG_ERR'
+ 3727 |       DBG_LOG_ERR(
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3727:7: note: in expansion of macro 'DBG_LOG_ERR'
+ 3727 |       DBG_LOG_ERR(
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'fuota':
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3771:5: note: in expansion of macro 'DBG_LOG_ERR'
+ 3771 |     DBG_LOG_ERR("FUOTA error: %d %d %d %d",
+      |     ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3771:5: note: in expansion of macro 'DBG_LOG_ERR'
+ 3771 |     DBG_LOG_ERR("FUOTA error: %d %d %d %d",
+      |     ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3782:25: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+ 3782 |       (strlen(sensorIntf->imageFwVerPath) == 0)))
+      |               ~~~~~~~~~~^~~~~~~~~~~~~~~~
+      |                         |
+      |                         uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:407:35: note: expected 'const char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  407 | extern size_t strlen (const char *__s)
+      |                       ~~~~~~~~~~~~^~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3785:5: note: in expansion of macro 'DBG_LOG_ERR'
+ 3785 |     DBG_LOG_ERR("FUOTA error: %d %d %s",
+      |     ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3785:5: note: in expansion of macro 'DBG_LOG_ERR'
+ 3785 |     DBG_LOG_ERR("FUOTA error: %d %d %s",
+      |     ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3829:7: warning: passing argument 16 of 'app_froto_n_encode_msg_fuota_notify_dissem' from incompatible pointer type [-Wincompatible-pointer-types]
+ 3829 |       &hash,
+      |       ^~~~~
+      |       |
+      |       uint32_t * {aka unsigned int *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:16:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/encoder/app_froto_fuota_encoder.h:45:12: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint32_t *' {aka 'unsigned int *'}
+   45 |   uint8_t *checkValue,
+      |   ~~~~~~~~~^~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3848:20: warning: passing argument 4 of 'app_froto_n_simple_send' from incompatible pointer type [-Wincompatible-pointer-types]
+ 3848 |          sensorIntf->send,
+      |          ~~~~~~~~~~^~~~~~
+      |                    |
+      |                    send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:78:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   78 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3860:32: warning: pointer targets in passing argument 1 of 'open' differ in signedness [-Wpointer-sign]
+ 3860 |     imageFwfd = open(sensorIntf->imageFwVerPath, O_RDONLY);
+      |                      ~~~~~~~~~~^~~~~~~~~~~~~~~~
+      |                                |
+      |                                uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:9:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/fcntl.h:209:30: note: expected 'const char *' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  209 | extern int open (const char *__file, int __oflag, ...) __nonnull ((1));
+      |                  ~~~~~~~~~~~~^~~~~~
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3863:7: note: in expansion of macro 'DBG_LOG_ERR'
+ 3863 |       DBG_LOG_ERR("Failed to open file %s, for %s",
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3863:7: note: in expansion of macro 'DBG_LOG_ERR'
+ 3863 |       DBG_LOG_ERR("Failed to open file %s, for %s",
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3874:7: note: in expansion of macro 'DBG_LOG_ERR'
+ 3874 |       DBG_LOG_ERR("Failed to lseek, for %s", strerror(errno));
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3874:7: note: in expansion of macro 'DBG_LOG_ERR'
+ 3874 |       DBG_LOG_ERR("Failed to lseek, for %s", strerror(errno));
+      |       ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3936:24: warning: passing argument 5 of 'app_froto_n_send_with_reply' from incompatible pointer type [-Wincompatible-pointer-types]
+ 3936 |              sensorIntf->send,
+      |              ~~~~~~~~~~^~~~~~
+      |                        |
+      |                        send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:85:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   85 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3984:24: warning: passing argument 4 of 'app_froto_n_simple_send' from incompatible pointer type [-Wincompatible-pointer-types]
+ 3984 |              sensorIntf->send,
+      |              ~~~~~~~~~~^~~~~~
+      |                        |
+      |                        send_msg_t {aka _Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)}
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:11:
+/home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_new.h:78:20: note: expected 'froto_send_msg_t' {aka '_Bool (*)(void *, void *, unsigned int,  unsigned char *)'} but argument is of type 'send_msg_t' {aka '_Bool (*)(struct sensor_interface *, void *, unsigned int,  unsigned char *)'}
+   78 |   froto_send_msg_t send,
+      |   ~~~~~~~~~~~~~~~~~^~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3748:9: warning: unused parameter 'user_data' [-Wunused-parameter]
+ 3748 |   void *user_data,
+      |   ~~~~~~^~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:3749:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 3749 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'current_version_upload_processor':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4025:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ 4025 | }
+      | ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4015:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 4015 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'config_hash_upload_processor':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4040:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ 4040 | }
+      | ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4029:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 4029 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'config_upload_processor':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4179:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ 4179 | }
+      | ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4044:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 4044 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'simple_data_upload_processor':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4200:24: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4200 |       strncpy(data_item->sensor_name, data_item_sensor_name,
+      |               ~~~~~~~~~^~~~~~~~~~~~~
+      |                        |
+      |                        uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4200:39: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4200 |       strncpy(data_item->sensor_name, data_item_sensor_name,
+      |                                       ^~~~~~~~~~~~~~~~~~~~~
+      |                                       |
+      |                                       uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4203:25: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+ 4203 |       snprintf(data_item->sensor_mac, sizeof(data_item->sensor_mac),
+      |                ~~~~~~~~~^~~~~~~~~~~~
+      |                         |
+      |                         uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/cjson/list.h:19,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/cjson/gwConfig.h:14,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:16,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/stdio.h:378:39: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  378 | extern int snprintf (char *__restrict __s, size_t __maxlen,
+      |                      ~~~~~~~~~~~~~~~~~^~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4214:24: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4214 |       strncpy(data_item->sensor_type, data_item_sensor_type,
+      |               ~~~~~~~~~^~~~~~~~~~~~~
+      |                        |
+      |                        uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4214:39: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4214 |       strncpy(data_item->sensor_type, data_item_sensor_type,
+      |                                       ^~~~~~~~~~~~~~~~~~~~~
+      |                                       |
+      |                                       uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4217:24: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4217 |       strncpy(data_item->manufacturer, data_item_manufacturer,
+      |               ~~~~~~~~~^~~~~~~~~~~~~~
+      |                        |
+      |                        uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4217:40: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4217 |       strncpy(data_item->manufacturer, data_item_manufacturer,
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~
+      |                                        |
+      |                                        uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4313:27: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+ 4313 |         snprintf(data_item->format, sizeof(data_item->format), "%s",
+      |                  ~~~~~~~~~^~~~~~~~
+      |                           |
+      |                           uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/cjson/list.h:19,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/cjson/gwConfig.h:14,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:16,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/stdio.h:378:39: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  378 | extern int snprintf (char *__restrict __s, size_t __maxlen,
+      |                      ~~~~~~~~~~~~~~~~~^~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4319:24: warning: format '%d' expects argument of type 'int', but argument 5 has type 'uint64_t' {aka 'long unsigned int'} [-Wformat=]
+ 4319 |                    "%s%d_%d_%s",
+      |                       ~^
+      |                        |
+      |                        int
+      |                       %ld
+ 4320 |                    DB_ALARMDATA_FILENAME_PREFIX,
+ 4321 |                    data_item->received_ts,
+      |                    ~~~~~~~~~~~~~~~~~~~~~~
+      |                             |
+      |                             uint64_t {aka long unsigned int}
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4365:27: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+ 4365 |         snprintf(data_item->format, sizeof(data_item->format), "%s",
+      |                  ~~~~~~~~~^~~~~~~~
+      |                           |
+      |                           uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/cjson/list.h:19,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/cjson/gwConfig.h:14,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:16,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/stdio.h:378:39: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  378 | extern int snprintf (char *__restrict __s, size_t __maxlen,
+      |                      ~~~~~~~~~~~~~~~~~^~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4433:39: warning: assignment to 'struct data_item *' from incompatible pointer type 'struct db_data_item *' [-Wincompatible-pointer-types]
+ 4433 |         pt_op_msg->cmd_para.pt_dtitem = data_item;
+      |                                       ^
+In file included from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:20:
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:21: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                     ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4439:9: note: in expansion of macro 'DBG_LOG_ERR'
+ 4439 |         DBG_LOG_ERR("Failed to malloc");
+      |         ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:260:91: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  260 |     if((g_log_level < CONFIG_LOG_LEVEL_ERROR) || ((g_log_level > l_log_lev) && (l_log_lev < CONFIG_LOG_LEVEL_ERROR))) break;  \
+      |                                                                                           ^
+/home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h:284:33: note: in expansion of macro 'UTIL_LOG_ERR'
+  284 | #define DBG_LOG_ERR(__fmt, ...) UTIL_LOG_ERR(OUTPOINT, __fmt,##__VA_ARGS__)
+      |                                 ^~~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4439:9: note: in expansion of macro 'DBG_LOG_ERR'
+ 4439 |         DBG_LOG_ERR("Failed to malloc");
+      |         ^~~~~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ 4449 | }
+      | ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4183:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 4183 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'bulk_data_upload_first_pkt_processor':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4469:24: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4469 |       strncpy(data_item->sensor_name, data_item_sensor_name,
+      |               ~~~~~~~~~^~~~~~~~~~~~~
+      |                        |
+      |                        uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4469:39: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4469 |       strncpy(data_item->sensor_name, data_item_sensor_name,
+      |                                       ^~~~~~~~~~~~~~~~~~~~~
+      |                                       |
+      |                                       uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4472:25: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+ 4472 |       snprintf(data_item->sensor_mac, sizeof(data_item->sensor_mac),
+      |                ~~~~~~~~~^~~~~~~~~~~~
+      |                         |
+      |                         uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/cjson/list.h:19,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/cjson/gwConfig.h:14,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:16,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/stdio.h:378:39: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  378 | extern int snprintf (char *__restrict __s, size_t __maxlen,
+      |                      ~~~~~~~~~~~~~~~~~^~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4483:24: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4483 |       strncpy(data_item->sensor_type, data_item_sensor_type,
+      |               ~~~~~~~~~^~~~~~~~~~~~~
+      |                        |
+      |                        uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4483:39: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4483 |       strncpy(data_item->sensor_type, data_item_sensor_type,
+      |                                       ^~~~~~~~~~~~~~~~~~~~~
+      |                                       |
+      |                                       uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4486:24: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4486 |       strncpy(data_item->manufacturer, data_item_manufacturer,
+      |               ~~~~~~~~~^~~~~~~~~~~~~~
+      |                        |
+      |                        uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:144:40: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4486:40: warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]
+ 4486 |       strncpy(data_item->manufacturer, data_item_manufacturer,
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~
+      |                                        |
+      |                                        uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/util.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/build/generated/include/ell/ell.h:8,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:13,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/string.h:145:46: note: expected 'const char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  145 |                       const char *__restrict __src, size_t __n)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4580:27: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+ 4580 |         snprintf(data_item->format, sizeof(data_item->format), "%s",
+      |                  ~~~~~~~~~^~~~~~~~
+      |                           |
+      |                           uint8_t * {aka unsigned char *}
+In file included from /home/forlinx/GW/GW/skf_gw/source/include/cjson/list.h:19,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/cjson/gwConfig.h:14,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h:16,
+                 from /home/forlinx/GW/GW/skf_gw/source/include/general/sensorInterface/sensor_interface_insight_predict.h:11,
+                 from /home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:10:
+/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/stdio.h:378:39: note: expected 'char * restrict' but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+  378 | extern int snprintf (char *__restrict __s, size_t __maxlen,
+      |                      ~~~~~~~~~~~~~~~~~^~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4592:24: warning: format '%d' expects argument of type 'int', but argument 5 has type 'uint64_t' {aka 'long unsigned int'} [-Wformat=]
+ 4592 |                    "%s%d_%d_%s",
+      |                       ~^
+      |                        |
+      |                        int
+      |                       %ld
+ 4593 |                    DB_WAVEDATA_FILENAME_PREFIX,
+ 4594 |                    data_item->received_ts,
+      |                    ~~~~~~~~~~~~~~~~~~~~~~
+      |                             |
+      |                             uint64_t {aka long unsigned int}
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4631:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ 4631 | }
+      | ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4453:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 4453 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'bulk_data_upload_remained_pkt_processor':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4655:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ 4655 | }
+      | ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4635:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 4635 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'image_block_request_processor':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4697:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ 4697 | }
+      | ^
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:4682:12: warning: unused parameter 'err_code' [-Wunused-parameter]
+ 4682 |   uint8_t *err_code)
+      |   ~~~~~~~~~^~~~~~~~
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c: In function 'unregisterSensorIntfInsightPredict':
+/home/forlinx/GW/GW/skf_gw/source/src/general/sensorInterface/sensor_interface_insight_predict.c:404:1: warning: control reaches end of non-void function [-Wreturn-type]
+  404 | }
+      | ^
+gmake[2]: *** [CMakeFiles/skf_gw.dir/build.make:216: CMakeFiles/skf_gw.dir/source/src/general/sensorInterface/sensor_interface_insight_predict.c.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/skf_gw.dir/all] Error 2
+gmake: *** [Makefile:91: all] Error 2

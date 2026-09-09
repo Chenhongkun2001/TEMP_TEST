@@ -1,0 +1,26 @@
+#!/bin/sh
+ 
+case "$1" in
+ 
+    start)
+        exec systemctl start bluetooth.service
+        ;;
+ 
+    stop)
+        exec systemctl stop bluetooth.service
+        ;;
+ 
+    restart|reload)
+        exec systemctl restart bluetooth.service
+        ;;
+ 
+    status)
+        exec systemctl status --no-pager bluetooth.service
+        ;;
+ 
+    *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+        ;;
+ 
+esac

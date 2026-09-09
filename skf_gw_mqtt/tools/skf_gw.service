@@ -1,0 +1,14 @@
+[Unit]
+Description=skf Gateway
+
+[Service]
+StandardOutput=tty
+ExecStart=/home/root/skf_gw_mqtt/start.sh start
+TimeoutSec=10
+RemainAfterExit=yes
+
+UMask =0077
+
+[Install]
+WantedBy=multi-user.target
+

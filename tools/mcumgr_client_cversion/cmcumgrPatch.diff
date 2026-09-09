@@ -1,0 +1,123 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+new file mode 100644
+index 0000000..067080d
+--- /dev/null
++++ b/CMakeLists.txt
+@@ -0,0 +1,90 @@
++cmake_minimum_required(VERSION 3.10)
++
++project(mcumgr VERSION 0.0.1 LANGUAGES C DESCRIPTION "mcumgr for SKF CNEA Gateway")
++
++set(PROJECT_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
++
++# To setup the tool chain ...
++set(CMAKE_SYSTEM_NAME Linux)
++set(TOOLCHAIN_DIR "/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu")
++set(CMAKE_CXX_COMPILER ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-g++)
++set(CMAKE_C_COMPILER ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-gcc)
++set(CMAKE_ASM_COMPILER ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-as)
++set(CMAKE_LINKER ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-ld)
++set(CMAKE_AR ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-ar)
++set(CMAKE_OBJCOPY ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-objcopy)
++set(CMAKE_STRIP ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-strip)
++set(CMAKE_OBJDUMP ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-objdump)
++set(CMAKE_NM ${TOOLCHAIN_DIR}/bin/aarch64-none-linux-gnu-nm)
++
++# To assign the language standard and general compiler's flags
++set(CMAKE_C_STANDARD 99)
++set(CMAKE_CXX_STANDARD 99)
++add_compile_options(-Wall -Wextra)
++
++# Set build type
++# Ones can use "cmake -DCMAKE_BUILD_TYPE=Debug" or "cmake -DCMAKE_BUILD_TYPE=Release" to switch 
++# the compilition mode between release or debug
++MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
++# Compile options for Debug variant
++set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
++set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
++MESSAGE(STATUS "CMAKE_C_FLAGS_DEBUG = ${CMAKE_C_FLAGS_DEBUG}")
++MESSAGE(STATUS "CMAKE_CXX_FLAGS_DEBUG = ${CMAKE_CXX_FLAGS_DEBUG}")
++# Compile options for Release variant
++set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O0")
++set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O0")
++MESSAGE(STATUS "CMAKE_C_FLAGS_RELEASE = ${CMAKE_C_FLAGS_RELEASE}")
++MESSAGE(STATUS "CMAKE_CXX_FLAGS_RELEASE = ${CMAKE_CXX_FLAGS_RELEASE}")
++
++# To include the headers' path
++include_directories("${PROJECT_SOURCE_DIR}/include")
++include_directories("${PROJECT_SOURCE_DIR}/src/mcumgr-client/lib/include")
++include_directories("${PROJECT_SOURCE_DIR}/src/mcumgr-client/include")
++include_directories("${PROJECT_SOURCE_DIR}/src/mcumgr-client/include/mcumgr-client")
++include_directories("${PROJECT_SOURCE_DIR}/../tinycbor")
++include_directories("${PROJECT_SOURCE_DIR}/../tinycbor/src")
++
++
++# To set the library
++# tinycbor
++set(SKF_GW_LIBTINYCBOR_DIR "${PROJECT_SOURCE_DIR}")
++find_library(SKF_GW_LIB_TINYCBOR tinycbor ${SKF_GW_LIBTINYCBOR_DIR} NO_DEFAULT_PATH)
++MESSAGE(STATUS "SKF_GW_LIB_UDEV = ${SKF_GW_LIB_UDEV}")
++
++# To add the source code
++set(SRCS ${PROJECT_SOURCE_DIR}/src/cli/main.c 
++	${PROJECT_SOURCE_DIR}/src/cli/cli_opts.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/transport/serial/serial_opts.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/transport/serial/serial_port_unix.c
++	#${PROJECT_SOURCE_DIR}/src/mcumgr-client/transport/serial/serial_port_win.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/transport/serial/smp_serial.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/mgmt/mgmt_common.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/mgmt/mgmt_hdr.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/mgmt/mgmt_os.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/mgmt/mgmt_utils.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/mgmt/mgmt_img.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/lib/base64.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/lib/crc16.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/lib/hexlify.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/lib/utils.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/image/file_reader.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/image/file_reader_unix.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/image/mcuboot_img.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/commands/cmd_common.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/commands/cmd_img.c
++	${PROJECT_SOURCE_DIR}/src/mcumgr-client/commands/cmd_os.c
++	)
++
++add_definitions(-DVERSION="1.0.0")
++
++add_executable(mcumgr ${SRCS})
++
++target_link_libraries(mcumgr ${SKF_GW_LIB_TINYCBOR})
++
++# Here, "-Wl,--rpath-link=${SKF_GW_SHARED_MAINLOOP_LIB_DIR}" is added to the link property,
++# which is required by ${SKF_GW_LIB_GLIB_2_0}
++set_target_properties(mcumgr 
++                      PROPERTIES LINK_FLAGS 
++                      "-W -Xlinker -Map=./output.map -Wl,--rpath-link=${SKF_GW_SHARED_MAINLOOP_LIB_DIR}")
++
+diff --git a/src/mcumgr-client/mgmt/mgmt_img.c b/src/mcumgr-client/mgmt/mgmt_img.c
+index 1bffe37..072c5eb 100644
+--- a/src/mcumgr-client/mgmt/mgmt_img.c
++++ b/src/mcumgr-client/mgmt/mgmt_img.c
+@@ -210,11 +210,17 @@ static int mgmt_img_parse_slot(CborValue *map_val, struct mgmt_slot_state *slot)
+ 		const bool required;
+ 		bool found;
+ 	} flags_def[5] = {
+-		{ .key = "bootable", .flag = &slot->bootable, .required = true, .found = false },
+-		{ .key = "confirmed", .flag = &slot->confirmed, .required = true, .found = false },
+-		{ .key = "pending", .flag = &slot->pending, .required = true, .found = false },
+-		{ .key = "active", .flag = &slot->active, .required = true, .found = false },
+-		{ .key = "permanent", .flag = &slot->permanent, .required = true, .found = false },
++		// NOTICE: to communicate with the mcuboot of Zephyr, we need to modify some flags.
++		// { .key = "bootable", .flag = &slot->bootable, .required = true, .found = false },
++		{ .key = "bootable", .flag = &slot->bootable, .required = false, .found = false }, // to adapt Zephyr's mcuboot
++		// { .key = "confirmed", .flag = &slot->confirmed, .required = true, .found = false },
++		{ .key = "confirmed", .flag = &slot->confirmed, .required = false, .found = false }, // to adapt Zephyr's mcuboot
++		// { .key = "pending", .flag = &slot->pending, .required = true, .found = false },
++		{ .key = "pending", .flag = &slot->pending, .required = false, .found = false }, // to adapt Zephyr's mcuboot
++		// { .key = "active", .flag = &slot->active, .required = true, .found = false },
++		{ .key = "active", .flag = &slot->active, .required = false, .found = false }, // to adapt Zephyr's mcuboot
++		// { .key = "permanent", .flag = &slot->permanent, .required = true, .found = false },
++		{ .key = "permanent", .flag = &slot->permanent, .required = false, .found = false }, // to adapt Zephyr's mcuboot
+ 	};
+ 
+ 	DBG("Enter slot\n");

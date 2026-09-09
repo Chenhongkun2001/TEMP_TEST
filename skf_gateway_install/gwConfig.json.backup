@@ -1,0 +1,38 @@
+{
+	"version": 1,
+	"lastEditTime": 0,
+	"gwConfig": {
+		"type": "BulletGW",
+		"manufacturer": "SKF",
+		"name": "",
+		"nameId": 0,
+		"macAddr": "C4-BD-6A-12-34-56",
+		"gatewayMode": 1,
+		"BLEConfig": {
+			"BLE1TxPower": 0,
+			"BLE2TxPower": 0,
+			"BLE1Antenna": 0,
+			"BLE2Antenna": 0,
+			"BLEDuplicatedDrop": 1000
+		},
+		"timeConfig": {
+			"timeStamp": true,
+			"timeSetting": 1,
+			"timeNTPUrl": "ntp.tencent.com"
+		},
+		"MQTTConfig": {
+			"MQTTSecurityType": 0,
+			"MQTTHost": "mqtt-dp.skf4u.com",
+			"MQTTPort": 1883
+		},
+		"IPConfig": {
+			"DHCPEnable": true,
+			"staticIPAddr": "10.1.0.1",
+			"netMask": "255.255.255.0",
+			"DNSServer": "8.8.8.8"
+		},
+		"childrenNumber": 0,
+		"children": [
+		]
+	}
+}

@@ -1,0 +1,59 @@
+app:
+  address: 0x17200
+  end_address: 0xFD800
+  region: flash_primary
+  size: 0xE6600
+mcuboot:
+  address: 0x0
+  end_address: 0x17000
+  placement:
+    align:
+      end: 0x1000
+    before:
+    - mcuboot_primary
+  region: flash_primary
+  size: 0x17000
+mcuboot_pad:
+  address: 0x17000
+  end_address: 0x17200
+  placement:
+    align:
+      start: 0x1000
+    before:
+    - mcuboot_primary_app
+  region: flash_primary
+  size: 0x200
+mcuboot_primary:
+  address: 0x17000
+  end_address: 0xFD800
+  orig_span: &id001
+  - app
+  - mcuboot_pad
+  region: flash_primary
+  size: 0xE6800
+  span: *id001
+mcuboot_primary_app:
+  address: 0x17200
+  end_address: 0xFD800
+  orig_span: &id002
+  - app
+  region: flash_primary
+  size: 0xE6600
+  span: *id002
+
+flash_reserve:
+  address: 0xFD800
+  end_address: 0x100000
+  placement:
+    align:
+    end: 0x1000
+    after:
+      - mcuboot_primary
+  region: flash_primary
+  size: 0x2800
+
+sram_primary:
+  address: 0x20000000
+  end_address: 0x20040000
+  region: sram_primary
+  size: 0x40000

@@ -1,0 +1,51 @@
+# Target and Path config
+# sql target 
+SQL=json_test
+# SQL=insert_data
+INC_DIR :=middleware/sqlite3 \
+		  middleware/common \
+		  middleware/ipc_mbs \
+		  middleware/json    \
+		  libs/cJSON-master/usr/local/include/cjson \
+		  libs/libell/inc \
+		  libx/include/libusb-1.0
+
+
+SRC_DIR :=middleware/sqlite3 \
+		  middleware/ipc_mbs \
+		  middleware/common  \
+		  middleware/json
+		  
+LIB_DIR := libx
+
+SRC_DIRS := $(patsubst %,$(ROOT_DIR)/%,$(SRC_DIR))
+LIB_DIRS := $(patsubst %,$(ROOT_DIR)/../%,$(LIB_DIR))
+INC_DIRS := $(patsubst %,$(ROOT_DIR)/%,$(INC_DIR)) /home/forlinx/work/OK62xx-linux-sdk/OK62xx-linux-fs/rootfs/usr/include
+Objs := $(foreach n,$(SRC_DIRS),$(patsubst %.c,%.o,$(wildcard $(n)/*.c)))
+CFLAGS:=-c -Wall -Os -g 
+
+LDFLAGS+= $(patsubst %, -L%, $(LIB_DIRS)) \
+-L/usr/lib -lsqlite3 \
+-L../tmp_libs/libs/ -lcjson \
+-L../tmp_libs/libs/ -lell \
+-L../tmp_libs/libx/ -lusb-1.0 -ludev \
+--sysroot=/home/forlinx/work/OK62xx-linux-sdk/OK62xx-linux-fs/rootfs
+export CFLAGS += $(patsubst %, -I%, $(INC_DIRS))
+# LDFLAGS+= -lpaho-mqtt3c
+# Main part
+Source := $(wildcard ./*.c)
+local_objs := $(patsubst %.c,%.o,$(Source))
+
+.PHONY : clean all build_obj $(SQL)
+all: clean $(local_objs) build_obj $(SQL)
+
+$(SQL):$(Objs) $(local_objs)
+	$(CC) $^ -o $@ $(LDFLAGS)
+%.o:%.c                  
+	$(CC) $(CFLAGS) -c $^ 
+ifneq ($(SRC_DIRS),)
+build_obj:
+	@for n in $(SRC_DIRS); do make -C $$n ; done
+endif
+clean:
+	@rm -rf $(Objs) $(local_objs) $(SQL)

@@ -1,0 +1,37 @@
+A.compiling
+1.to compile the application successfully, you need to clone AppProtocols(git@codeup.aliyun.com:6347c4cf0e55ca746598185e/FirmwareAcrhitecture/AppProtocols.git) into skf_gw first;
+
+B
+1.about library pthread, ref@git://git.savannah.gnu.org/hurd/libpthread.git for more info    
+
+
+2. sometimes the compiling warning may cause deadly problem, so fix all warning is a good habbit
+
+3.about library ell, you can clone it from git://git.kernel.org/pub/scm/libs/ell/ell.git . ref@https://git.kernel.org/pub/scm/libs/ell/ell.git/  for more info
+ NOTE!!!a. the commit we are using is 	11c1f40a77c7d9d9cf7a29ae1d91dab374e5e90c . you can update to the latest version.ref@ell_commit_applied.png
+        b.commands for compiling ell-library ref@command_to_compile_ell_for_forlinx.txt	
+
+
+4.about OK6231-C_0621B.dtb
+Device tree which support the gateway user-key  
+how to use ?
+a. replace /boot/OK6231-C.dtb by this dtb.
+b. then reboot
+c. /dev/input/by-path/platform-mcu-gpio-keys-event is expected to be seen and we can see the GPIO is registered by command "cat /sys/kernel/debug/gpio"  
+	when the dtb is replaced successfully
+d.run "evtest /dev/input/by-path/by-path/platform-gpio-keys-event"
+	then press the key, we an see the key-event is detected
+
+5.OK6231-C_with_led_key_support.dtb
+	device tree which supports led and key 
+
+
+6.to add support for BT advertising interval modification
+ to support this feature, you need to modify /etc/init.d/bluetooth to run bluetoothd with option "-E"
+ FYI:   "/usr/libexec/bluetooth/bluetoothd &"   =>  "/usr/libexec/bluetooth/bluetoothd -E &"
+
+
+
+
+
+//============================================================================

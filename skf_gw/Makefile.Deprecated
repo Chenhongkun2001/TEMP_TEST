@@ -1,0 +1,72 @@
+TARGET= skf_gw
+
+OBJS= util_dbg.o sys_def.o bt_common.o sys_timer.o bt_advertising.o bt_connection.o bt_agent.o bt_gatt.o app_local_service.o\
+      app_pro_general.o app_pro_ble.o main.o test_le_connect.o app_common.o util_froto.o util_froto_datawrap.o app_getConfigure.o\
+      app_waiting_queue.o app_froto.o app_cjson.o app_db.o app_gw_scheduler.o app_tim_service.o app_io.o app_hci_evt_mgmt.o\
+      bt_hcitool.o\
+      ../../AppProtocols/nanopb_protocol/DeviceAppBulletGateway.pb.o ../../AppProtocols/nanopb_protocol/Froto.pb.o\
+      ../../AppProtocols/nanopb_protocol/SensingDataUpload.pb.o ../../AppProtocols/nanopb_protocol/FirmwareUpdateOverTheAir.pb.o\
+      ../../AppProtocols/nanopb_protocol/ConfigurationAndCommand.pb.o ../../AppProtocols/nanopb_protocol/Debug.pb.o\
+      ../../AppProtocols/tools/nanopb/pb_common.o ../../AppProtocols/tools/nanopb/pb_decode.o ../../AppProtocols/tools/nanopb/pb_encode.o\
+      ./cjson/cJSON.o ./cjson/cJSON_Utils.o ./cjson/jsonbuild.o ./cjson/jsonparse.o ./cjson/cjson_test.o\
+      ../skf_gw_mqtt/middleware/common/auxiliar.o\
+      ./monitor/a2dp.o ./monitor/analyze.o ./monitor/att.o ./monitor/avctp.o ./monitor/avdtp.o ./monitor/bnep.o\
+      ./monitor/broadcom.o ./monitor/btmon_main.o ./monitor/control.o ./monitor/crc.o ./monitor/display.o\
+      ./monitor/ellisys.o ./monitor/hcidump.o ./monitor/hwdb.o ./monitor/intel.o ./monitor/jlink.o\
+      ./monitor/keys.o ./monitor/l2cap.o ./monitor/ll.o ./monitor/lmp.o ./monitor/msft.o\
+      ./monitor/packet.o ./monitor/rfcomm.o ./monitor/sdp.o ./monitor/vendor.o ./monitor/textfile.o
+
+ifdef DISABLE_COLLECT_INSIGHT_T
+  DEFINES+= -DCOLLECT_INSIGHT_T=0
+else
+  DEFINES+= -DCOLLECT_INSIGHT_T=1
+endif
+
+ifdef NO_SCANNING_DURING_CONNECTION
+  DEFINES+= -DSCANNING_IN_A_CONNECTION=0
+else
+  DEFINES+= -DSCANNING_IN_A_CONNECTION=1
+endif
+
+ifdef ACC_WAVEFORM_REQUIRED
+  DEFINES+= -DSENSOR_DATA_COL_RULE_REQUIRING_ACC_WAVE=1
+else
+  DEFINES+= -DSENSOR_DATA_COL_RULE_REQUIRING_ACC_WAVE=0
+endif
+
+ifdef DATA_RESERVED_TIME_S_CONF
+  DEFINES+= -DSYS_DATA_RESERVED_TIME_S=$(DATA_RESERVED_TIME_S_CONF)
+endif
+
+CFLAGS+= -c -Wall -g 
+
+LDFLAGS+= -Wl,--rpath-link=monitor/lib_bluez -Llibell_for_OK62xx/src/ell/ell/.libs -Lmonitor/lib_bluez -lell -ldl -lrt -lshared-mainloop -lglib-2.0\
+          -lbluetooth-internal
+
+IFLAGS+= -Ilibell_for_OK62xx/src/ell/\
+         -I../../AppProtocols/tools/nanopb/\
+         -I../../AppProtocols/nanopb_protocol/\
+         -Icjson/\
+         -I../skf_gw_mqtt/middleware/common/\
+         -I../bluez/\
+         -Imonitor/lib_bluez/x86_64-linux-gnu/glib-2.0/include\
+         -Imonitor/lib_bluez/glib-2.0/\
+         -Imonitor/\
+         -Imonitor/lib_bluez/bluez\
+         -I./\
+         -Imonitor/lib_bluez/bluez/lib
+				
+
+$(TARGET):$(OBJS)
+	$(CC) $^ -W -Xlinker -Map=./output.map  $(LDFLAGS) -pthread -o $@  
+
+%.o:%.c
+	$(CC) $^ $(CFLAGS) $(DEFINES) $(FLAGS) $(IFLAGS) -o $@
+
+clean:
+	$(RM) *.o $(TARGET) cjson/*.o -r
+	$(RM) *.o ../skf_gw_mqtt/middleware/common/*.o -r
+	$(RM) *.o ../../AppProtocols/nanopb_protocol/*.o ../../AppProtocols/tools/nanopb/*.o -r
+	$(RM) ./monitor/*.o
+install:
+	cp $(TARGET) ../../../OK6254-linux-fs/rootfs/usr/bin/

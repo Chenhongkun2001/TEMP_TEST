@@ -1,0 +1,33 @@
+[Unit]
+Description=SKF Gateway Modbus Service
+ 
+Requires=skf-gw.service
+Requires=skf-gw-sql.service
+ 
+After=skf-gw.service
+After=skf-gw-sql.service
+After=dev-ttyS3.device
+ 
+[Service]
+Type=simple
+ 
+User=skfgw
+Group=skfgw
+ 
+WorkingDirectory=/var/lib/skf-gateway
+Environment=HOME=/var/lib/skf-gateway
+ 
+ExecStartPre=/usr/bin/test -r /var/lib/skf-gateway/config/magicFile.json
+ExecStartPre=/usr/bin/test -r /dev/ttyS3
+ExecStartPre=/usr/bin/test -w /dev/ttyS3
+ 
+ExecStart=/opt/skf-gateway/bin/skf_gw_modbus_rtu
+ 
+Restart=on-failure
+RestartSec=5
+ 
+UMask=0077
+NoNewPrivileges=true
+ 
+[Install]
+WantedBy=skf-gateway.target

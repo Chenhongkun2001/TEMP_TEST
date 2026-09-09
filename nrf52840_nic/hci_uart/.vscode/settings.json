@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "device.h": "c",
+        "nrf5x.h": "c",
+        "nrf_power.h": "c",
+        "init.h": "c",
+        "bluetooth.h": "c"
+    },
+    "nrf-connect.debugging.bindings": {
+        "${workspaceFolder}/build/hci_uart": "Launch hci_uart",
+        "${workspaceFolder}/build_21540/hci_uart": "Launch hci_uart"
+    }
+}

@@ -1,0 +1,16 @@
+#ifndef __INCLUDE_HELLOWORLD_VERSION_H__
+#define __INCLUDE_HELLOWORLD_VERSION_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define HELLOWORLD_VERSION_MAJOR @helloworld_VERSION_MAJOR@
+#define HELLOWORLD_VERSION_MINOR @helloworld_VERSION_MINOR@
+#define HELLOWORLD_VERSION_PATCH @helloworld_VERSION_PATCH@
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // __INCLUDE_HELLOWORLD_VERSION_H__

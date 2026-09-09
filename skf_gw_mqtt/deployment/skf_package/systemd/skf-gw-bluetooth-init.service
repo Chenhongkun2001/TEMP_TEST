@@ -1,0 +1,19 @@
+[Unit]
+Description=SKF Gateway Bluetooth HCI
+After=systemd-udevd.service
+Before=skf-gw-bluetooth-provision.service
+Before=bluetooth.service
+ 
+[Service]
+Type=simple
+User=root
+Group=root
+ 
+ExecStart=/usr/libexec/skf-gateway/bluetooth-hci-main.sh
+ExecStartPost=/usr/libexec/skf-gateway/bluetooth-hci-up.sh
+ 
+Restart=on-failure
+RestartSec=2
+ 
+TimeoutStartSec=20
+TimeoutStopSec=5

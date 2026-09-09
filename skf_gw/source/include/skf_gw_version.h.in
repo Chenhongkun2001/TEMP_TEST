@@ -1,0 +1,16 @@
+#ifndef __INCLUDE_SKF_GW_VERSION_H__
+#define __INCLUDE_SKF_GW_VERSION_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define SKF_GW_VERSION_MAJOR @skf_gw_VERSION_MAJOR@
+#define SKF_GW_VERSION_MINOR @skf_gw_VERSION_MINOR@
+#define SKF_GW_VERSION_PATCH @skf_gw_VERSION_PATCH@
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // __INCLUDE_SKF_GW_VERSION_H__

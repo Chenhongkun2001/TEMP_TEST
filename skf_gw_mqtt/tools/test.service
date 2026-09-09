@@ -1,0 +1,11 @@
+[unit]
+Description=autotest
+[Service]
+StandardOutput=tty
+ExecStart=/home/root/skf_gw_mqtt/start.sh start
+TimeoutSec=20
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+

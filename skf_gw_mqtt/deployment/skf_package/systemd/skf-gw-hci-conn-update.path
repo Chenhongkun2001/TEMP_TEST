@@ -1,0 +1,8 @@
+[Unit]
+Description=SKF Gateway HCI Connection Update Request Watcher
+After=systemd-tmpfiles-setup.service
+Before=skf-gw.service
+ 
+[Path]
+DirectoryNotEmpty=/run/skf-gateway/hci-conn-update/requests
+Unit=skf-gw-hci-conn-update.service

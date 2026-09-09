@@ -1,0 +1,3 @@
+/home/forlinx/GW/GW/skf_gw/build/CMakeFiles/skf_gw.dir
+/home/forlinx/GW/GW/skf_gw/build/CMakeFiles/edit_cache.dir
+/home/forlinx/GW/GW/skf_gw/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,464 @@
+    1  cd 6254/OK6254-linux-sdk/
+    2  ls
+    3  ls OK6254-linux-fs/
+    4  ls OK6254-linux-fs/rootfs/bo
+    5  ls OK6254-linux-fs/rootfs/
+    6  cd ..
+    7  cd 
+    8  ls
+    9  rm -rf OK6254-linux-fs/
+   10  sync
+   11  ls
+   12  cd ./Desktop/
+   13  ls
+   14  mv ./OK6254-linux-sdk.tar.bz2.00 ./OK6254-linux-sdk.tar.bz2
+   15  tar -jvxf ./OK6254-linux-sdk.tar.bz2 
+   16  ls
+   17  cd ~/.config/
+   18  ls
+   19  cat QtProject
+   20  cd /home/forlinx/Desktop/OK6254-linux-sdk/appsrc/forlinx-qt/build-fltest_qt_backlight-62xx-Debug
+   21  ls
+   22  readelf -h fltest_qt_backlight 
+   23  cd /opt
+   24  ;s
+   25  ls
+   26  rm arago-2021.09-aarch64-linux-tisdk/
+   27  ls
+   28  sudo rm -r arago-2021.09-aarch64-linux-tisdk/
+   29  ls
+   30  ifconfig
+   31  . arago-2023.04-aarch64-linux-tisdk.sh 
+   32  ./arago-2023.04-aarch64-linux-tisdk.sh 
+   33  sudo gedit qt.conf 
+   34  sudo cp -rf ./GLES3 /opt/arago-2023.04/sysroots/aarch64-oe-linux/usr/include
+   35  sudo apt-get install gparted
+   36  gparted
+   37  df -h
+   38  reboot
+   39  sudo rm -r arago-2023.04/
+   40  gparted
+   41  git clone OK62xx-linux-kernel.git
+   42  sudo cp -r a53/ images/
+   43  sudo cp tiboot3.bin images/
+   44  . build.sh 
+   45  sudo ./build.sh all
+   46  sudo apt-get install flex
+   47  sudo apt-get install bison
+   48  sudo ./build.sh all
+   49  sudo ./build.sh clean
+   50  sudo ./build.sh all
+   51  laideji
+   52  sudo ./build.sh clean
+   53  sudo apt-get update
+   54  sudo apt-get install openssh-server vim git fakeroot make automake autoconf libtool libssl-dev bc dosfstools mtools parted iproute2 gcc kmod u-boot-tools
+   55  tar -jxvf OK62xx-linux-sdk.git.tar.bz2 
+   56  tar -jxvf OK62xx-linux-fs.git.tar.bz2 
+   57  tar -jxvf OK62xx-linux-kernel.git.tar.bz2 
+   58  git clone OK62xx-linux-sdk.git
+   59  git clone OK62xx-linux-fs.git
+   60  cd work/OK62xx-linux-
+   61  cd work/OK62xx-linux-sdk
+   62  ;s
+   63  ls
+   64  . build.sh 
+   65  sudo ./build.sh all
+   66  cd work/OK62xx-linux-sdk
+   67  . build.sh 
+   68  sudo ./build.sh all
+   69  sudo ./build.sh clean
+   70  sudo ./build.sh all
+   71  sudo rm -r arago-2023.04/
+   72  ls
+   73  cd work/
+   74  ls
+   75  cd ..
+   76  ls
+   77  cd TI_pinmux/
+   78  ls
+   79  cd ..
+   80  ls
+   81  cd Downloads/
+   82  ls
+   83  cd ..
+   84  ls
+   85  ls /
+   86  cd usr
+   87  sudo su
+   88  ls
+   89  sudo su 
+   90  cd /home/
+   91  ls
+   92  cd forlinx/
+   93  ls
+   94  cd Desktop/
+   95  ls
+   96  ll -a
+   97  sudo su
+   98  ls
+   99  cd work/
+  100  ls
+  101  mv ~/Desktop/OK62xx-linux-sdk.tar.bz2* .
+  102  ls
+  103  rm OK62xx-linux-sdk.tar.bz2.0*
+  104  ls
+  105  tar zxvf OK62xx-linux-sdk.tar.bz2
+  106  tar jxvf OK62xx-linux-sdk.tar.bz2
+  107  ls
+  108  mkdir backup
+  109  mv OK62xx-linux-sdk.tar.bz2 backup/
+  110  ls
+  111  cd OK62xx-linux-sdk/
+  112  ls
+  113  cd external-toolchain-dir/
+  114  ls
+  115  cd arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/
+  116  ls
+  117  cd bin/
+  118  ls
+  119  ./arm-none-linux-gnueabihf-gcc -v
+  120  cd ..
+  121  ls
+  122  cd ..
+  123  ls
+  124  cd arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/
+  125  ls
+  126  cd bin/
+  127  ls
+  128  ./aarch64-none-linux-gnu-gcc -v
+  129  ls
+  130  pwd
+  131  cd ..
+  132  ls
+  133  cd ..
+  134  ls
+  135  cd arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/
+  136  cd bin/
+  137  ls
+  138  pwd
+  139  sudo vi /etc/profile
+  140  cd ~
+  141  source /etc/profile
+  142  arm-none-linux-gnueabihf-gcc -v
+  143  aarch64-none-linux-gnu-gcc -v
+  144  sudo reboot
+  145  cd /mnt/
+  146  ls
+  147  cd /
+  148  ls
+  149  cd /media/
+  150  ls
+  151  cd sf_Desktop/
+  152  ls
+  153  sudo su
+  154  cd work/
+  155  ls
+  156  cd OK62xx-linux-sdk/
+  157  ls
+  158  cat build.sh 
+  159  ./build.sh 
+  160  ./build.sh help
+  161  ./build.sh clean
+  162  ./build.sh help
+  163  ./build.sh dfu
+  164  ./build.sh mkfs
+  165  ls
+  166  ./build.sh help
+  167  ./build.sh all hsfs 1g
+  168  ls
+  169  cd images/
+  170  ls
+  171  sudo shutown -P now
+  172  shutdown -P now
+  173  sudo shutdown -P now
+  174  ls
+  175  cd work/
+  176  ls
+  177  cd ..
+  178  ls
+  179  mkdir wks
+  180  ls
+  181  sudo mount -t vboxsf vshare wks
+  182  ls
+  183  cd wks
+  184  ls
+  185  touch shit
+  186  ls
+  187  cd ..
+  188  ls
+  189  mkdir V_WKS
+  190  cd V_WKS/
+  191  ls
+  192  mv ~/wks/OK6254-linux-sdk.tar.bz2.00 .
+  193  mv OK6254-linux-sdk.tar.bz2.00 OK6254-linux-sdk.tar.bz2
+  194  ls
+  195  ls OK6254-linux-sdk.tar.bz2 
+  196  mv OK6254-linux-sdk.tar.bz2
+  197  tar -xvjf OK6254-linux-sdk.tar.bz2 
+  198  ls
+  199  cd OK6254-linux-sdk/
+  200  ls
+  201  ping 8.8.8.8
+  202  ls
+  203  sudo shutdown -P now
+  204  ls
+  205  sudo shutdown
+  206  sudo shutdown -P now
+  207  ifconfig
+  208  ls
+  209  sudo mount -t vboxsf vshare wks
+  210  ls
+  211  cd wks
+  212  ls
+  213  ifconfig
+  214  cd 
+  215  ls
+  216  cd .ssh/
+  217  ls
+  218  ssh-keygen 
+  219  ls
+  220  cp id_rsa.pub ~/wks/id_rsa_forlinx.pub 
+  221  ls
+  222  cd
+  223  ls
+  224  cd wks
+  225  ls
+  226  cat shit 
+  227  ls
+  228  scp shit victor@192.168.27.210:~/wks3/
+  229  ifconfig
+  230  scp shit victor@192.168.27.210:~/wks3/
+  231  sudo shutdown -P now
+  232  cd /
+  233  sudo find -name ltmain.sh
+  234  ping 8.8.8.8
+  235  ls
+  236  ifconfig
+  237  mkdir workspace
+  238  ls
+  239  cd work
+  240  cd ..
+  241  cd workspace/
+  242  ls
+  243  ifconfig
+  244  cat shit 
+  245  ls
+  246  git 
+  247  git clone git://git.kernel.org/pub/scm/libs/ell/ell.git
+  248  ls
+  249  cd ell/
+  250  ls
+  251  acloca
+  252  aclocal
+  253  mkdir build-aux
+  254  aclocal
+  255  autoconf 
+  256  autoheader 
+  257  automake --add-missing
+  258  touch build-aux/ltmain.sh
+  259  aclocal
+  260  autoconf 
+  261  autoheader 
+  262  automake --add-missing
+  263  ls
+  264  ./configure --target=arm-none-linux-gnueabihf --host=arm-none-linux-gnueabihf --prefix=arm-none-linux-gnueabihf-
+  265  whereis arm-none-linux-gnueabihf-gcc
+  266  ./configure --target=arm-none-linux-gnueabihf --host=arm-none-linux-gnueabihf --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-
+  267  vi configure
+  268  ./configure --target=arm-none-linux-gnueabihf --host=arm-none-linux-gnueabihf --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-
+  269  ls
+  270  make
+  271  ls
+  272  autoscan 
+  273  ls
+  274  ll
+  275  ll configure*
+  276  make clean
+  277  make
+  278  ls
+  279  make
+  280  make clean
+  281  autoscan 
+  282  aclocal
+  283  autoreconf 
+  284  ls
+  285  ./configure --target=arm-none-linux-gnueabihf --host=arm-none-linux-gnueabihf --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-
+  286  vi configure
+  287  ./configure --target=arm-none-linux-gnueabihf --host=arm-none-linux-gnueabihf --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-
+  288  make
+  289  make clean
+  290  md5sum configure.ac 
+  291  git log
+  292  git status
+  293  rm autoscan.log 
+  294  rm configure.scan 
+  295  ls
+  296  ls build-aux/
+  297  rm build-aux/ltmain.sh 
+  298  ls
+  299  sudo aclocal
+  300  sudo autoreconf 
+  301  sudo autoconf 
+  302  ls build-aux/
+  303  sudo autoheader 
+  304  sudo automake --add-missing
+  305  grep -rn "ltmain.sh"
+  306  find -name ltmain.sh
+  307  sudo shutdown -P now
+  308  ls
+  309  cd workspace/
+  310  ls
+  311  cd ell/
+  312  ls
+  313  aclocal
+  314  autoconf 
+  315  autoheader 
+  316  automake --add-missing
+  317  cp /home/forlinx/work/OK62xx-linux-sdk/OK62xx-linux-fs/rootfs/usr/share/libtool/build-aux/ltmain.sh ./build-aux/
+  318  automake --add-missing
+  319  ls
+  320  whereis aarch64-none-linux-gnu-gcc
+  321  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  322  make
+  323  ls
+  324  libtool -h
+  325  ./libtool -h
+  326  ./libtool -v
+  327  whereis libtool
+  328  /usr/share/libtool -h
+  329  ls /usr/share/libtool 
+  330  ./libtool -v
+  331  autoconf  -f
+  332  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  333  vi configure
+  334  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  335  make
+  336  whichis libtool
+  337  sudo apt-get install libtool
+  338  ls
+  339  mv libtool libtool_bkp
+  340  ls
+  341  aclocal
+  342  autoconf 
+  343  autoheader 
+  344  whereis libtool
+  345  automake --add-missing
+  346  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  347  make
+  348  make clean
+  349  make
+  350  libtool -v
+  351  sudo apt-get install libtool-bin
+  352  libtool -v
+  353  libtool -h
+  354  libtool -v
+  355  libtool --version
+  356  aclocal
+  357  autoconf 
+  358  autoheader 
+  359  automake --add-missing
+  360  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  361  make
+  362  ls
+  363  rm libtool
+  364  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  365  make
+  366  aclocal
+  367  autoconf 
+  368  autoheader 
+  369  automake --add-missing
+  370  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  371  make
+  372  cd ..
+  373  ls
+  374  rm ell/ -R
+  375  sudo rm ell/ -R
+  376  ls
+  377  cat shit 
+  378  git clone git://git.kernel.org/pub/scm/libs/ell/ell.git
+  379  ls
+  380  cd ell/
+  381  ls
+  382  aclocal
+  383  mkdir build-aux
+  384  aclocal
+  385  autoconf 
+  386  autoheader 
+  387  automake --add-missing
+  388  history
+  389  automake --add-missing
+  390  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  391  vi configure
+  392  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  393  make
+  394  ls
+  395  rm libtool 
+  396  ls
+  397  git status
+  398  aclocal
+  399  autoconf 
+  400  autoheader 
+  401  automake --add-missing
+  402  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  403  make clean
+  404  make
+  405  cd ..
+  406  ls
+  407  sudo rm ell/ -r
+  408  cat shit 
+  409  git clone git://git.kernel.org/pub/scm/libs/ell/ell.git
+  410  ls
+  411  cd ell/
+  412  ls
+  413  ls *.m4
+  414  ls
+  415  find -name libtool
+  416  libtool --version
+  417  aclocal
+  418  mkdir build-aux
+  419  autoconf 
+  420  autoheader 
+  421  automake --add-missing
+  422  history
+  423  cp /home/forlinx/work/OK62xx-linux-sdk/OK62xx-linux-fs/rootfs/usr/share/libtool/build-aux/ltmain.sh ./build-aux/
+  424  automake --add-missing
+  425  ls
+  426  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  427  vi configure
+  428  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  429  make clean
+  430  make
+  431  vi aclocal.m4 
+  432  make
+  433  libtool --version
+  434  ls
+  435  vi acinclude.m4 
+  436  grep -rn "2.4."
+  437  ls
+  438  vi libtool 
+  439  rm build-aux/ltmain.sh 
+  440  aclocal
+  441  autoreconf 
+  442  aclocal
+  443  autoconf 
+  444  autoheader 
+  445  automake --add-missing
+  446  autoconf -i
+  447  autoheader 
+  448  automake --add-missing
+  449  libtoolize 
+  450  ls build-aux/
+  451  ls build-aux/ltmain.sh 
+  452  ls build-aux/ltmain.sh  -l
+  453  automake --add-missing
+  454  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  455  vi configure
+  456  ./configure --target=aarch64-none-linux-gnu --host=aarch64-none-linux-gnu --prefix=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+  457  make
+  458  ls
+  459  ls ell/.libs/
+  460  ls ell/.libs/libell.so.0.0.2 -l
+  461  file ell/.libs/libell.so.0.0.2 
+  462  history
+  463  ls
+  464  history > ~/wks/command_to_compile_ell.txt

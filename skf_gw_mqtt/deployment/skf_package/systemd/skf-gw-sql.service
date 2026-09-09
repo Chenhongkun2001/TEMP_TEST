@@ -1,0 +1,25 @@
+[Unit]
+Description=SKF Gateway SQL Service
+ 
+Requires=skf-gw.service
+After=skf-gw.service
+ 
+[Service]
+Type=simple
+ 
+User=skfgw
+Group=skfgw
+ 
+WorkingDirectory=/var/lib/skf-gateway
+Environment=HOME=/var/lib/skf-gateway
+ 
+ExecStart=/opt/skf-gateway/bin/sql_op
+ 
+Restart=on-failure
+RestartSec=5
+ 
+UMask=0077
+NoNewPrivileges=true
+ 
+[Install]
+WantedBy=skf-gateway.target

@@ -1,0 +1,95 @@
+{
+	"version": 1,
+	"lastEditTime": 1710399747,
+	"gwConfig": {
+		"type": "BulletGW",
+		"manufacturer": "SKF",
+		"name": "FAN zone 1",
+		"nameId": 311978254,
+		"macAddr": "C4-BD-6A-12-34-56",
+		"gatewayMode": 1,
+		"BLEConfig": {
+			"BLE1TxPower": 0,
+			"BLE2TxPower": 0,
+			"BLE1Antenna": 0,
+			"BLE2Antenna": 0,
+			"BLEDuplicatedDrop": 1000
+		},
+		"timeConfig": {
+			"timeStamp": true,
+			"timeSetting": 1,
+			"timeNTPUrl": "ntp1.nim.ac.cn"
+		},
+		"MQTTConfig": {
+			"MQTTSecurityType": 0,
+			"MQTTHost": "mqtt-dpuat.skf4u.com",
+			"MQTTPort": 1883
+		},
+		"IPConfig": {
+			"DHCPEnable": true,
+			"staticIPAddr": "10.1.0.2",
+			"netMask": "255.255.255.0",
+			"DNSServer": "8.8.8.8",
+			"gatewayAddr": "10.1.0.1"
+		},
+		"childrenNumber": 3,
+		"children": [
+			{
+				"type": "BulletSensor",
+				"manufacturer": "SKF",
+				"name": "FAN point #1",
+				"nameId": 311978255,
+				"BLESensorName": "FANSEN3457",
+				"macAddr": "C4-BD-6A-12-34-59"
+			},
+			{
+				"type": "BulletSensor",
+				"manufacturer": "SKF",
+				"name": "FAN point #2",
+				"nameId": 311978256,
+				"BLESensorName": "FANSEN3458",
+				"macAddr": "C4-BD-6A-12-34-5A"
+			},
+			{
+				"type": "BulletSensor",
+				"manufacturer": "SKF",
+				"name": "FAN point #3",
+				"nameId": 311978257,
+				"BLESensorName": "FANSEN3459",
+				"macAddr": "C4-BD-6A-12-34-5B"
+			},
+			{
+				"type": "BulletSensor",
+				"manufacturer": "SKF",
+				"name": "FAN point #3",
+				"nameId": 311978258,
+				"BLESensorName": "FANSEN3459",
+				"macAddr": "C4-BD-6A-12-34-5C"
+			},
+			{
+				"type": "BulletSensor",
+				"manufacturer": "SKF",
+				"name": "FAN point #3",
+				"nameId": 311978259,
+				"BLESensorName": "FANSEN3459",
+				"macAddr": "C4-BD-6A-12-34-5D"
+			},
+			{
+				"type": "BulletSensor",
+				"manufacturer": "SKF",
+				"name": "FAN point #3",
+				"nameId": 311978260,
+				"BLESensorName": "FANSEN3459",
+				"macAddr": "C4-BD-6A-12-34-5E"
+			},
+			{
+				"type": "BulletSensor",
+				"manufacturer": "SKF",
+				"name": "FAN point #3",
+				"nameId": 311978261,
+				"BLESensorName": "FANSEN3459",
+				"macAddr": "C4-BD-6A-12-34-5F"
+			}
+		]
+	}
+}
