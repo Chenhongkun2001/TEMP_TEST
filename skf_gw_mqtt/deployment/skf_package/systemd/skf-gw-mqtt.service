@@ -1,6 +1,13 @@
 [Unit]
 Description=SKF Gateway MQTT Service
  
+PartOf=skf-gateway.target
+ 
+# mqtt_op must be managed only through skf-gateway.target.
+# Prevent old scripts / accidental direct systemctl stop from
+# leaving the cloud connection permanently offline.
+RefuseManualStop=yes
+ 
 Wants=skf-gw.service
 Wants=skf-gw-sql.service
 Wants=skf-gw-network-recovery.path

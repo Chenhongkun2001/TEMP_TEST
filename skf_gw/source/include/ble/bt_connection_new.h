@@ -99,11 +99,18 @@ struct dev_queue_ele
 };
 
 struct con_controller *bt_con_n_get_con_ctr(void);
-
 app_state_t bt_con_n_init_con_controller(
   struct con_controller *pt_con_ctr);
 void bt_con_n_deinit_con_controller(struct con_controller *pt_con_ctr);
 app_state_t bt_con_n_connect_to_dev(struct con_controller *pt_con_ctr);
+/*
+* Return true once when the connection layer has detected a
+* persistent/inconsistent target Device1 proxy state.
+*
+* This is recovery signalling only.  It does not change scanning,
+* RSSI handling, proxy TTL, connection interval or Sensor logic.
+*/
+bool bt_con_n_take_proxy_recovery_required(void);
 #if (SKF_GW_CONFIG_MULTI_CONNECTION == 1)
 app_state_t bt_con_n_disconnect_from_dev(
   struct con_controller *pt_con_ctr,

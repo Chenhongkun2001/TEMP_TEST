@@ -1,11 +1,11 @@
 3214f5a9ca28a84505fba98c4861a678e89eefbd818581bf3440b65bfc280a3c  ./bin/mqtt_op
-f2c00e750ce59a521b951f5745b678d17f7d89c13e6f4ff728b58768fea10e93  ./bin/skf_gw
+4878d0df8d1cfa46c0448cdc0483c8d9dd9b499b518321d2dcefab52f68af961  ./bin/skf_gw
 865cfd4ca488f9309ec4f9d52f6a51df21623b8dd8f0637aa4d505deb0c29664  ./bin/skf_gw_modbus_rtu
 15acb3ac7957d5f73f55a4146bc0f4b282588f4dba3542e5a21008067a0fe093  ./bin/sql_op
 5e67089b794de4f8fe46859aa9d99abb50e7c0b5f58313dec1f756838bbee9fe  ./compat/bluetooth
 f0b9894d66e0e36d15355cbfa9418d7e59a84065f8073bfcbd51427e87f6cbb4  ./config/gwConfig.json.backup
 6ccd483ec08e90ab8149d2a2d0f21229d46b6db47ab6e90371414541a59b0b3a  ./config/magicFile.json
-f55e27e1518310d040697dc471c6ff62408e2a86d82a48b3aaea15650ce19974  ./install.sh
+a36e20e85ce84951680f341d3c784e75f148775a3f7b0502678e42429a0c207a  ./install.sh
 e188dfc62c849850c4c70d77f4882bd0152df17206d3d5d2034c73d117693c63  ./libs.tar.gz
 6ccd483ec08e90ab8149d2a2d0f21229d46b6db47ab6e90371414541a59b0b3a  ./magicFile.json
 91c5fa2727b748d6e14f7d41ba9f555e5bfe1c010d8df3c311088b247edbb17c  ./mqtt_op
@@ -16,7 +16,7 @@ fcfba5bc2372b7964a7ab633018e0f782d2dc57ba08e61fba643337f668dc719  ./restart_sql.
 1a608e3a338f1bcf1598c1d2a6dbb81bfaa2496da6aa24296fd2e99abeaf1aaf  ./scripts/bluetooth-hci-main.sh
 5f5937043da8a47ba6fe56a2fb660f059c98cbefb0d119cd4cca602227b0e33b  ./scripts/bluetooth-hci-up.sh
 d5c53f49f39c5cc5220d9ab318b8ab41e12da7e41c1f0c1fe1cde21c177fd34f  ./scripts/bluetooth-provision.sh
-de7f5d46f57c89f700e11f9a2628d67d30560cdd10e11817b2f377da88074d8a  ./scripts/bluetooth-recover.sh
+551f05c44ec083fd7aae032faffba9c34304a487ec26b5bd32d6b60e8c7ad4b1  ./scripts/bluetooth-recover.sh
 20818d0f1df68d2b00ee9a777e66ab2e5f5046adca9992e0480b8aff9e5e1756  ./scripts/gpio-init.sh
 a96397ef54539bb5fa775333ab791ae9499824a3a673468240b08a97c8ce42bf  ./scripts/hci-conn-update-dispatch.sh
 143ac67fb93f6a0ea1cdcaefce88efea84326233ea2553f3d71fe3d1d7b68db8  ./scripts/network-recovery-dispatch.sh
@@ -37,13 +37,12 @@ e1d5fe3192a1dad686d101aa98db341b7d9431b3f4df97d4fb01197127b0d21d  ./skf-gateway-
 ad9f4d60b9c8d47141855b02921faba9bacd1a035e14b8973bf232e46f1778b6  ./systemd/skf-gw-bluetooth-recover.service
 28092f91409f9a9917578ad474396f3b622a356f14615669772af9c4dc8b0d0f  ./systemd/skf-gw-gpio-init.service
 314c55f3b961e203f671af397247c0e20cb64a00217ed929bb86cbd0a83a7a51  ./systemd/skf-gw-hci-conn-update.path
-298ac3a1914954bc559854b0b45f4a8c739e0e6502154a7ebcb35aca1bccbd27  ./systemd/skf-gw-hci-conn-update.service
+bbfdc58ed7320a5b57a5918a2699f47c465e3beb391bc0886f392627fa350095  ./systemd/skf-gw-hci-conn-update.service
 418e76a1e1c5c84871f57826f5cfe0fdd1952caf3fb7f33c30aeb14fcb141b39  ./systemd/skf-gw-modbus.service
 d1d88d83d947ef7cabc58eb0f1f9f744584bdcf1f63d52d2a9bfa04a2360bbab  ./systemd/skf-gw-mqtt.service
 9086f005645084fa9251d1e38aea5b4f2d0ad3e99abb1c36fb1807145b0824cd  ./systemd/skf-gw-network-recovery.path
 0158d96afb1a9c87feb4f1e808fca7fa82ca2d354aa064b9b92e5a8c061a0169  ./systemd/skf-gw-network-recovery.service
 89b4964499d67167e48f54a9dbbfcc82663e814e9cec065ad705ee7692be8963  ./systemd/skf-gw-quectel.service
-1e4a72a4c4194b1e9dbb7e517c206323ecfb87231082bf8e2024e4c0bac12bc1  ./systemd/skf-gw-quectl.service
 4406479ef129eed0cb49994d426dc434b193fc8dd38ec30e149e9c07a0f23ac9  ./systemd/skf-gw.service
 d4a51cc44aad9e5da61c9b31958246daf3d51a649ef072baeaba89829d919a16  ./systemd/skf-gw-sql.service
 31e98294a0b663bb56a551f20fa372df8ad8fa6d1f0ff1060038218f33fb8040  ./test.service

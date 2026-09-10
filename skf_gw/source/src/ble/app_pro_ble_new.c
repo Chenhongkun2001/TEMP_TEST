@@ -72,7 +72,7 @@ DBG_LOCAL_LOG_DEBUG
   "/run/skf-gateway/state/bluetooth-recover.result"
 
 
-static int request_privileged_recovery(void);
+static int request_privileged_bluetooth_recovery(void);
 static restart_dbus_required = false;
 static bool _g_flag;
 static bool _g_wait_for_discon_flag = false;
@@ -1683,13 +1683,29 @@ thandler_ble_periodicloop(void *pt_para)
       if(0 == (_cnt_s % 8))
       {
         int32_t _queue_len = 0;
-
+        app_state_t _connect_ret = ST_OK;
+ 
         pthread_mutex_lock(&_pt_con_ctr->mtx_for_dev_queue);
         _queue_len = l_queue_length(_pt_con_ctr->dev_queue);
         pthread_mutex_unlock(&_pt_con_ctr->mtx_for_dev_queue);
-        DBG_LOG_INFO("Length of device proxy queue is %d", _queue_len);
+ 
+        DBG_LOG_INFO(
+          "Length of device proxy queue is %d",
+          _queue_len);
+ 
+        _connect_ret =
+          bt_con_n_connect_to_dev(_pt_con_ctr);
 
-        bt_con_n_connect_to_dev(_pt_con_ctr);
+        if((ST_OK != _connect_ret) &&
+           (true ==
+            bt_con_n_take_proxy_recovery_required()))
+        {
+          DBG_LOG_ERR(
+            "Persistent Device1 proxy state detected; "
+            "restart skf_gw through systemd");
+          fflush(stdout);
+          exit(EXIT_FAILURE);
+        }
         // add an extra check in case connection timeout! while dbug restarted
         if(false == restart_dbus_required)
         {

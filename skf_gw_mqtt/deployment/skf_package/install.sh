@@ -90,8 +90,23 @@ fi
 # 1. Stop legacy application management chain
 #
  
+#
+# The Gateway target is the single lifecycle owner.
+# Stop it first so an installation never leaves an active
+# target with individually stopped member services.
+#
+systemctl stop skf-gateway.target 2>/dev/null || true
+ 
+#
+# Compatibility with installations that predate PartOf=.
+#
+systemctl stop skf-gw-mqtt.service 2>/dev/null || true
+systemctl stop skf-gw.service      2>/dev/null || true
+systemctl stop skf-gw-sql.service  2>/dev/null || true
+systemctl stop skf-gw-modbus.service 2>/dev/null || true
+ 
 systemctl disable skf_gw.service 2>/dev/null || true
-systemctl stop skf_gw.service 2>/dev/null || true
+systemctl stop skf_gw.service    2>/dev/null || true
  
 pkill -f '/restart_ble.sh' 2>/dev/null || true
 pkill -f '/restart_mqtt.sh' 2>/dev/null || true
@@ -678,7 +693,7 @@ systemctl disable skf-gw-modbus.service 2>/dev/null || true
  
  
 #
-# 19. Enable new target and firstboot credential safeguard
+# 19. Enable and start the new Gateway stack
 #
  
 systemctl daemon-reload
@@ -687,13 +702,51 @@ systemctl enable skf-gateway.target
 systemctl enable skf-gateway-firstboot-credential.service
  
 #
-# The target owns this path unit on boot.
-# Start it explicitly for an in-place upgrade so the fix
-# takes effect without rebooting the Gateway.
+# Bluetooth must be clean before the new skf_gw starts.
+# This preserves the BLE lifecycle conclusion we already
+# obtained from the Sensor Offline investigation.
 #
-systemctl start skf-gw-bluetooth-recover.path
-systemctl start skf-gw-hci-conn-update.path
-systemctl start skf-gw-network-recovery.path
+systemctl restart bluetooth.service
+ 
+BT_WAIT=0
+while ! systemctl is-active --quiet bluetooth.service; do
+    BT_WAIT=$((BT_WAIT + 1))
+ 
+    if [ "$BT_WAIT" -ge 10 ]; then
+        echo "ERROR: bluetooth.service failed to become active"
+        exit 1
+    fi
+ 
+    sleep 1
+done
+ 
+sleep 3
+ 
+#
+# Starting the target starts:
+#   sql
+#   gw
+#   mqtt
+#   modbus
+#   privileged path watchers
+#
+systemctl start skf-gateway.target
+ 
+#
+# Installation is NOT successful unless the three critical
+# application services are actually running.
+#
+for unit in \
+    skf-gw-sql.service \
+    skf-gw.service \
+    skf-gw-mqtt.service
+do
+    if ! systemctl is-active --quiet "$unit"; then
+        echo "ERROR: $unit is not active after installation"
+        systemctl status "$unit" --no-pager -l || true
+        exit 1
+    fi
+done
 
 echo
 echo "=================================================="

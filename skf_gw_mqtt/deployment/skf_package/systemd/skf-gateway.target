@@ -1,13 +1,15 @@
 [Unit]
 Description=SKF Gateway Application Stack
  
-Wants=skf-gw.service
 Wants=skf-gw-sql.service
+Wants=skf-gw.service
 Wants=skf-gw-mqtt.service
 Wants=skf-gw-modbus.service
+ 
 Wants=skf-gw-bluetooth-recover.path
 Wants=skf-gw-hci-conn-update.path
-
+Wants=skf-gw-network-recovery.path
+ 
 After=bluetooth.service
 After=skf-gw-gpio-init.service
 After=skf-gw-bluetooth-init.service

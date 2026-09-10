@@ -9,4 +9,4 @@ Group=root
  
 ExecStart=/usr/libexec/skf-gateway/hci-conn-update-dispatch.sh
  
-TimeoutStartSec=10
+TimeoutStartSec=10s

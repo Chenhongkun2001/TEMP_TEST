@@ -53,6 +53,197 @@ void bt_con_n_set_fail_count(uint8_t cnt)
 #endif
 
 static struct con_controller g_con_ctr; // Connection controllers
+/*
+* Device1/proxy recovery detector.
+*
+* Important:
+* This does NOT change the existing Sensor/BLE business logic.
+* It only records an inconsistency which can be handled by the
+* process-level watchdog in app_pro_ble_new.c.
+*
+* A recovery is requested only when:
+*
+*   1. a whitelisted SKF Sensor has produced several real RSSI
+*      Device1 updates recently;
+*   2. there is currently no active BLE connection;
+*   3. the following connection pass still cannot find a usable
+*      Device1 proxy for the whitelist.
+*
+* Therefore a sleeping Sensor, with no recent RSSI activity,
+* does not trigger a Gateway restart.
+*/
+#define BT_CONNECTION_NEW_PROXY_RECOVERY_RSSI_MIN      (3U)
+#define BT_CONNECTION_NEW_PROXY_RECOVERY_WINDOW_S      (30)
+ 
+static pthread_mutex_t g_proxy_recovery_mtx =
+  PTHREAD_MUTEX_INITIALIZER;
+ 
+static uint8_t g_recent_whitelist_rssi_count = 0;
+static time_t g_recent_whitelist_rssi_timestamp = 0;
+static bool g_proxy_recovery_required = false;
+ 
+ 
+static bool
+bt_con_n_addr_is_in_white_list(
+  struct con_controller *pt_con_ctr,
+  const char *pt_addr)
+{
+  char addrbuf[MAX_BT_ADDRSTR] = {0};
+ 
+  if((NULL == pt_con_ctr) ||
+     (NULL == pt_con_ctr->mtx_for_white_list) ||
+     (NULL == pt_addr))
+  {
+    return false;
+  }
+ 
+  pthread_mutex_lock(pt_con_ctr->mtx_for_white_list);
+ 
+  for(uint32_t i = 0;
+      i < MAX_BT_WHITE_LIST;
+      i++)
+  {
+    uint8_t *pt_nap =
+      (uint8_t *)&pt_con_ctr->white_list[i].nap;
+ 
+    uint8_t *pt_lap =
+      (uint8_t *)&pt_con_ctr->white_list[i].lap;
+ 
+    memset(addrbuf, 0, sizeof(addrbuf));
+ 
+    if(sys_is_platform_big_endian())
+    {
+      snprintf(
+        addrbuf,
+        sizeof(addrbuf),
+        "%02X:%02X:%02X:%02X:%02X:%02X",
+        pt_nap[0],
+        pt_nap[1],
+        pt_con_ctr->white_list[i].uap,
+        pt_lap[0],
+        pt_lap[1],
+        pt_lap[2]);
+    }
+    else
+    {
+      snprintf(
+        addrbuf,
+        sizeof(addrbuf),
+        "%02X:%02X:%02X:%02X:%02X:%02X",
+        pt_nap[1],
+        pt_nap[0],
+        pt_con_ctr->white_list[i].uap,
+        pt_lap[2],
+        pt_lap[1],
+        pt_lap[0]);
+    }
+ 
+    if(0 == strcmp(addrbuf, pt_addr))
+    {
+      pthread_mutex_unlock(
+        pt_con_ctr->mtx_for_white_list);
+ 
+      return true;
+    }
+  }
+ 
+  pthread_mutex_unlock(
+    pt_con_ctr->mtx_for_white_list);
+ 
+  return false;
+}
+ 
+ 
+static void
+bt_con_n_note_whitelist_proxy_activity(void)
+{
+  pthread_mutex_lock(&g_proxy_recovery_mtx);
+ 
+  if(g_recent_whitelist_rssi_count < 255U)
+  {
+    g_recent_whitelist_rssi_count++;
+  }
+ 
+  g_recent_whitelist_rssi_timestamp =
+    time(NULL);
+ 
+  pthread_mutex_unlock(&g_proxy_recovery_mtx);
+}
+ 
+ 
+static void
+bt_con_n_reset_proxy_recovery_state(void)
+{
+  pthread_mutex_lock(&g_proxy_recovery_mtx);
+ 
+  g_recent_whitelist_rssi_count = 0;
+  g_recent_whitelist_rssi_timestamp = 0;
+  g_proxy_recovery_required = false;
+ 
+  pthread_mutex_unlock(&g_proxy_recovery_mtx);
+}
+ 
+ 
+static void
+bt_con_n_note_proxy_lookup_failure(void)
+{
+  time_t now = time(NULL);
+ 
+  pthread_mutex_lock(&g_proxy_recovery_mtx);
+ 
+  /*
+   * We intentionally do NOT treat ordinary "proxy not found"
+   * as a fatal condition.
+   *
+   * Sensors normally sleep.  A sleeping Sensor may legitimately
+   * have no Device1 candidate.
+   *
+   * The abnormal case is:
+   *
+   *   several recent RSSI updates from a whitelisted Sensor
+   *       +
+   *   connection pass still cannot select its Device1 proxy.
+   */
+  if((g_recent_whitelist_rssi_count >=
+      BT_CONNECTION_NEW_PROXY_RECOVERY_RSSI_MIN) &&
+     (g_recent_whitelist_rssi_timestamp > 0) &&
+     (now >= g_recent_whitelist_rssi_timestamp) &&
+     ((now - g_recent_whitelist_rssi_timestamp) <=
+      BT_CONNECTION_NEW_PROXY_RECOVERY_WINDOW_S))
+  {
+    g_proxy_recovery_required = true;
+ 
+    DBG_LOG_WARN(
+      "Whitelisted Sensor was recently active "
+      "but no usable Device1 proxy was found; "
+      "request process recovery");
+  }
+ 
+  /*
+   * Consume this RSSI activity window.
+   * New RSSI activity is required before another recovery request.
+   */
+  g_recent_whitelist_rssi_count = 0;
+  g_recent_whitelist_rssi_timestamp = 0;
+ 
+  pthread_mutex_unlock(&g_proxy_recovery_mtx);
+}
+ 
+ 
+bool
+bt_con_n_take_proxy_recovery_required(void)
+{
+  bool required = false;
+ 
+  pthread_mutex_lock(&g_proxy_recovery_mtx);
+ 
+  required = g_proxy_recovery_required;
+  g_proxy_recovery_required = false;
+ 
+  pthread_mutex_unlock(&g_proxy_recovery_mtx);
+ 
+  return required;
+}
 #if (SKF_GW_CONFIG_MULTI_CONNECTION == 1)
 static struct con_method_parameter g_con_method_param = {0};
 // index counter for calculating the idx of pt_con_ctr->connected_proxy[] when connecting
@@ -1492,6 +1683,34 @@ bt_con_n_connect_to_dev(struct con_controller *pt_con_ctr)
   if((NULL == _pt_proxy_ele) || (NULL == _pt_proxy_to_connect))
   {
     pthread_mutex_unlock(&pt_con_ctr->mtx_for_dev_queue);
+#if (SKF_GW_CONFIG_MULTI_CONNECTION == 1)
+
+    /*
+     * A proxy miss is considered recoverable only when there is
+     * currently no active Sensor connection.
+     *
+     * This prevents an already-connected Sensor from causing a
+     * false process restart merely because there is another free
+     * multi-connection slot.
+     */
+
+    uint8_t con_num = 0;
+    if((ST_OK ==
+        bt_con_n_connect_num_fetch(
+          pt_con_ctr,
+&con_num)) &&
+       (0 == con_num))
+    {
+      bt_con_n_note_proxy_lookup_failure();
+    }
+    else
+    {
+      bt_con_n_reset_proxy_recovery_state();
+    }
+
+#else
+    bt_con_n_note_proxy_lookup_failure();
+#endif
     DBG_LOG_WARN("Failed to find dev proxy to connect!\n");
     _ret = ST_ERR;
 #if (SKF_GW_CONFIG_MULTI_CONNECTION == 1)
@@ -1506,6 +1725,7 @@ bt_con_n_connect_to_dev(struct con_controller *pt_con_ctr)
   // make sure each proxy has chance to be connected by putting unlock() here,
   // otherwise it might be flushed by proxies coming later
   pthread_mutex_unlock(&pt_con_ctr->mtx_for_dev_queue);
+  bt_con_n_reset_proxy_recovery_state();
 
 #if (SKF_GW_CONFIG_MULTI_CONNECTION == 1)
 #if (BT_CONNECTION_NEW_CONNECTION_REQUIRED == 1)
@@ -1855,12 +2075,24 @@ bt_con_n_append_dev_proxy(
         return _ret;
       }
       pthread_mutex_unlock(&pt_con_ctr->mtx_for_dev_queue);
-
       DBG_LOG_INFO("Dev %s (0x%llx) has been added to the queue",
                    _pt_proxy_addr, pt_proxy);
     }
+    /*
+     * Recovery observation only.
+     *
+     * Do this AFTER releasing mtx_for_dev_queue so that we do not
+     * introduce a dev_queue -> whitelist lock-order dependency.
+     */
+    if(true ==
+       bt_con_n_addr_is_in_white_list(
+         pt_con_ctr,
+         _pt_proxy_addr))
+    {
+      bt_con_n_note_whitelist_proxy_activity();
+    }
   }
-
+ 
   return _ret;
 }
 #endif

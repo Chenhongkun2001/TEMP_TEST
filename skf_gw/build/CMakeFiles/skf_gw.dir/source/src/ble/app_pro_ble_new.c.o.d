@@ -200,6 +200,10 @@ CMakeFiles/skf_gw.dir/source/src/ble/app_pro_ble_new.c.o: \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/types/struct_sigstack.h \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/sigthread.h \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/signal_ext.h \
+ /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h \
+ /home/forlinx/GW/GW/skf_gw/source/include/ble/app_pro_ble_new.h \
+ /home/forlinx/GW/GW/skf_gw/source/include/ble/bt_connection_new.h \
+ /home/forlinx/GW/GW/skf_gw/source/include/ble/bt_advertising_new.h \
  /home/forlinx/GW/GW/skf_gw/source/include/app_common.h \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/lib/gcc/aarch64-none-linux-gnu/11.3.1/include-fixed/pthread.h \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/sched.h \
@@ -213,15 +217,10 @@ CMakeFiles/skf_gw.dir/source/src/ble/app_pro_ble_new.c.o: \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/semaphore.h \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/semaphore.h \
  /home/forlinx/GW/GW/skf_gw/source/include/app_general_def.h \
- /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h \
- /home/forlinx/GW/GW/skf_gw/source/include/ble/app_pro_ble_new.h \
- /home/forlinx/GW/GW/skf_gw/source/include/ble/bt_connection_new.h \
- /home/forlinx/GW/GW/skf_gw/source/include/app_common.h \
- /home/forlinx/GW/GW/skf_gw/source/include/bt_gatt.h \
- /home/forlinx/GW/GW/skf_gw/source/include/ble/bt_advertising_new.h \
  /home/forlinx/GW/GW/skf_gw/source/include/ble/bt_gatt_new.h \
  /home/forlinx/GW/GW/skf_gw/source/include/ble/bt_connection_new.h \
  /home/forlinx/GW/GW/skf_gw/source/include/unittest.h \
  /home/forlinx/GW/GW/skf_gw/source/include/common/bt_hcitool.h \
  /home/forlinx/GW/GW/skf_gw/source/include/bt_advertising.h \
+ /home/forlinx/GW/GW/skf_gw/source/include/app_common.h \
  /home/forlinx/GW/GW/skf_gw/source/include/bt_common.h
