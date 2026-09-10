@@ -1,8 +1,8 @@
 [Unit]
 Description=SKF Gateway SQL Service
  
-Requires=skf-gw.service
-After=skf-gw.service
+Before=skf-gw.service
+Before=skf-gw-mqtt.service
  
 [Service]
 Type=simple
@@ -15,7 +15,7 @@ Environment=HOME=/var/lib/skf-gateway
  
 ExecStart=/opt/skf-gateway/bin/sql_op
  
-Restart=on-failure
+Restart=always
 RestartSec=5
  
 UMask=0077

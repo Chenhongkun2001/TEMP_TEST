@@ -299,6 +299,8 @@ install_tools(){
   local home socket_dir auth_file
   home="$(home_of)"
   socket_dir="$home/$SOCKET_DIR_NAME"
+  install -d -m 0700 -o "$UBUNTU_SSH_USER" -g "$UBUNTU_SSH_USER" \
+    "$socket_dir/.gwlist-state"
  
   # 迁移兼容：
   # 每个 Gateway 的脚本会单独删除自己的 <DEVICE_ID>-control key/state。
@@ -323,15 +325,15 @@ install_tools(){
   cat >/usr/local/bin/gwctl <<EOF
 #!/usr/bin/env bash
 set -euo pipefail
- 
+
 ID="\${1:-}"
 ACT="\${2:-}"
- 
-[[ "\$ID" =~ ^[A-Za-z0-9._-]+$ ]] || {
+
+[[ "\$ID" =~ ^[A-Za-z0-9._-]+\$ ]] || {
   echo "Usage: gwctl DEVICE_ID {open|always|close|status}" >&2
   exit 2
 }
- 
+
 case "\$ACT" in
   open|always|close|status) ;;
   *)
@@ -339,21 +341,47 @@ case "\$ACT" in
     exit 2
     ;;
 esac
- 
+
 S="$socket_dir/\${ID}.sock"
- 
+CACHE="/usr/local/bin/rssh-state-cache"
+
 if [[ ! -S "\$S" ]]; then
   echo "Gateway \$ID is offline on Reverse SSH." >&2
   echo "If it is in Forward SSH mode, connect through the normal/FRP SSH path." >&2
   exit 1
 fi
- 
-exec ssh \
+
+if "\$CACHE" current "\$ID" "\$S"; then
+  exec ssh \
+    -T \
+    -o "ProxyCommand=/usr/local/bin/rssh-unix-proxy.py \$S" \
+    -o "HostKeyAlias=\${ID}-reverse" \
+    root@"\$ID" \
+    "/usr/bin/reverse-ssh-control \$ACT"
+fi
+
+CONTROL="$socket_dir/.gwlist-control-\${ID}-\$\$"
+
+if ssh \
   -T \
+  -o ControlMaster=auto \
+  -o ControlPersist=15s \
+  -o "ControlPath=\$CONTROL" \
   -o "ProxyCommand=/usr/local/bin/rssh-unix-proxy.py \$S" \
   -o "HostKeyAlias=\${ID}-reverse" \
   root@"\$ID" \
   "/usr/bin/reverse-ssh-control \$ACT"
+then
+  rc=0
+else
+  rc=\$?
+fi
+
+"\$CACHE" sync "\$ID" "\$S" "\$CONTROL" >/dev/null 2>&1 || true
+ssh -S "\$CONTROL" -O exit root@"\$ID" >/dev/null 2>&1 || true
+rm -f "\$CONTROL"
+
+exit "\$rc"
 EOF
  
   chmod 0755 /usr/local/bin/gwctl
@@ -403,31 +431,219 @@ PY
  
   chmod 0755 /usr/local/bin/rssh-unix-proxy.py
   python3 -m py_compile /usr/local/bin/rssh-unix-proxy.py
+
+  cat >/usr/local/bin/rssh-state-cache <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+
+SOCKET_DIR="$socket_dir"
+CACHE_DIR="\$SOCKET_DIR/.gwlist-state"
+CACHE_OWNER="$UBUNTU_SSH_USER"
+
+valid_id() {
+  [[ "\${1:-}" =~ ^[A-Za-z0-9._-]+\$ ]]
+}
+
+session_key() {
+  local socket="\$1" token
+
+  token="\$(
+    ss -xlH | awk -v p="\$socket" '
+      {
+        for (i = 1; i <= NF; i++) {
+          if (\$i == p) {
+            print \$(i + 1)
+            exit
+          }
+        }
+      }
+    '
+  )"
+
+  [[ -n "\$token" ]] || return 1
+  printf '%s\n' "\$token"
+}
+
+cache_file() {
+  printf '%s/%s.state\n' "\$CACHE_DIR" "\$1"
+}
+
+cache_is_current() {
+  local id="\$1" socket="\$2" key file stored
+
+  [[ -S "\$socket" ]] || return 1
+  key="\$(session_key "\$socket")" || return 1
+  file="\$(cache_file "\$id")"
+  [[ -f "\$file" ]] || return 1
+
+  stored="\$(sed -n 's/^SESSION_KEY="\([^"]*\)"\$/\1/p' "\$file" | tail -n1)"
+  [[ -n "\$stored" && "\$stored" == "\$key" ]]
+}
+
+sync_from_master() {
+  local id="\$1" socket="\$2" control
+  local lock got_lock i key_before key_after state mode expires file tmp
+
+  control="\${3:-}"
+
+  cache_is_current "\$id" "\$socket" && return 0
+  [[ -S "\$socket" ]] || return 1
+  [[ -n "\$control" ]] || return 1
+
+  if [[ "\$(id -u)" -eq 0 ]]; then
+    install -d -m 0700 -o "\$CACHE_OWNER" -g "\$CACHE_OWNER" "\$CACHE_DIR"
+  else
+    install -d -m 0700 "\$CACHE_DIR"
+  fi
+
+  lock="\$CACHE_DIR/.\${id}.lock"
+  got_lock=0
+  i=0
+
+  while (( i < 50 )); do
+    if cache_is_current "\$id" "\$socket"; then
+      return 0
+    fi
+
+    if mkdir "\$lock" 2>/dev/null; then
+      got_lock=1
+      break
+    fi
+
+    sleep 0.1
+    i=\$((i + 1))
+  done
+
+  (( got_lock == 1 )) || return 0
+
+  cleanup_lock() {
+    rmdir "\$lock" 2>/dev/null || true
+  }
+  trap cleanup_lock EXIT HUP INT TERM
+
+  key_before="\$(session_key "\$socket")" || return 1
+
+  ssh \
+    -S "\$control" \
+    -O check \
+    root@"\$id" >/dev/null 2>&1 || return 1
+
+  state="\$(
+    ssh \
+      -T \
+      -S "\$control" \
+      -o BatchMode=yes \
+      -o ControlMaster=no \
+      root@"\$id" \
+      'cat /var/lib/reverse-ssh-control/state 2>/dev/null'
+  )" || return 1
+
+  mode="\$(sed -n 's/^MODE="\([^"]*\)"\$/\1/p' <<<"\$state" | tail -n1)"
+  expires="\$(sed -n 's/^EXPIRES_AT="\([0-9][0-9]*\)"\$/\1/p' <<<"\$state" | tail -n1)"
+
+  case "\$mode" in
+    timed|always|closed) ;;
+    *) return 1 ;;
+  esac
+
+  [[ "\$expires" =~ ^[0-9]+\$ ]] || return 1
+
+  key_after="\$(session_key "\$socket")" || return 1
+  [[ "\$key_after" == "\$key_before" ]] || return 1
+
+  file="\$(cache_file "\$id")"
+  tmp="\${file}.tmp.\$\$"
+  umask 077
+
+  printf 'SESSION_KEY="%s"\nMODE="%s"\nEXPIRES_AT="%s"\n' \
+    "\$key_after" \
+    "\$mode" \
+    "\$expires" >"\$tmp"
+
+  chmod 0600 "\$tmp"
+
+  if [[ "\$(id -u)" -eq 0 ]]; then
+    chown "\$CACHE_OWNER:\$CACHE_OWNER" "\$tmp" 2>/dev/null || true
+  fi
+
+  mv -f "\$tmp" "\$file"
+
+  cleanup_lock
+  trap - EXIT HUP INT TERM
+  return 0
+}
+
+cmd="\${1:-}"
+id="\${2:-}"
+socket="\${3:-}"
+
+valid_id "\$id" || exit 2
+
+case "\$cmd" in
+  current)
+    [[ \$# -eq 3 ]] || exit 2
+    cache_is_current "\$id" "\$socket"
+    ;;
+  sync)
+    [[ \$# -eq 4 ]] || exit 2
+    sync_from_master "\$id" "\$socket" "\$4"
+    ;;
+  *)
+    exit 2
+    ;;
+esac
+EOF
+
+  chmod 0755 /usr/local/bin/rssh-state-cache
  
   # gwssh：Reverse SSH 调试 shell 使用普通维护用户 root。
   cat >/usr/local/bin/gwssh <<EOF
 #!/usr/bin/env bash
 set -euo pipefail
- 
+
 ID="\${1:-}"
- 
-[[ "\$ID" =~ ^[A-Za-z0-9._-]+$ ]] || {
+
+[[ "\$ID" =~ ^[A-Za-z0-9._-]+\$ ]] || {
   echo "Usage: gwssh DEVICE_ID" >&2
   exit 2
 }
- 
+
 S="$socket_dir/\${ID}.sock"
- 
+CACHE="/usr/local/bin/rssh-state-cache"
+
 if [[ ! -S "\$S" ]]; then
   echo "Gateway \$ID is offline on Reverse SSH." >&2
   echo "If it is in Forward SSH mode, connect through the normal/FRP SSH path." >&2
   exit 1
 fi
- 
-exec ssh \
+
+if "\$CACHE" current "\$ID" "\$S"; then
+  exec ssh \
+    -o "ProxyCommand=/usr/local/bin/rssh-unix-proxy.py \$S" \
+    -o "HostKeyAlias=\${ID}-reverse" \
+    root@"\$ID"
+fi
+
+CONTROL="$socket_dir/.gwlist-control-\${ID}-\$\$"
+
+if ssh \
+  -o ControlMaster=auto \
+  -o ControlPersist=15s \
+  -o "ControlPath=\$CONTROL" \
   -o "ProxyCommand=/usr/local/bin/rssh-unix-proxy.py \$S" \
   -o "HostKeyAlias=\${ID}-reverse" \
   root@"\$ID"
+then
+  rc=0
+else
+  rc=\$?
+fi
+
+"\$CACHE" sync "\$ID" "\$S" "\$CONTROL" >/dev/null 2>&1 || true
+ssh -S "\$CONTROL" -O exit root@"\$ID" >/dev/null 2>&1 || true
+rm -f "\$CONTROL"
+
+exit "\$rc"
 EOF
  
   chmod 0755 /usr/local/bin/gwssh
@@ -438,6 +654,7 @@ set -Eeuo pipefail
 
 SOCKET_DIR="$socket_dir"
 PROXY="/usr/local/bin/rssh-unix-proxy.py"
+CACHE="/usr/local/bin/rssh-state-cache"
 
 usage() {
     cat >&2 <<'USAGE'
@@ -466,7 +683,7 @@ MODE="\${4:-upload}"
 
 [[ -n "\$ID" && -n "\$SOURCE" && -n "\$DESTINATION" ]] || usage
 
-if [[ ! "\$ID" =~ ^[A-Za-z0-9._-]+$ ]]; then
+if [[ ! "\$ID" =~ ^[A-Za-z0-9._-]+\$ ]]; then
     echo "Invalid DEVICE_ID: \$ID" >&2
     exit 2
 fi
@@ -490,32 +707,84 @@ SSH_OPTIONS=(
     -o "HostKeyAlias=\${ID}-reverse"
 )
 
-case "\$MODE" in
-    upload)
-        if [[ ! -e "\$SOURCE" ]]; then
-            echo "Local source does not exist: \$SOURCE" >&2
-            exit 1
-        fi
+run_scp() {
+    case "\$MODE" in
+        upload)
+            if [[ ! -e "\$SOURCE" ]]; then
+                echo "Local source does not exist: \$SOURCE" >&2
+                exit 1
+            fi
 
-        exec scp -O \
-            "\${SSH_OPTIONS[@]}" \
-            -- \
-            "\$SOURCE" \
-            "root@\${ID}:\$DESTINATION"
-        ;;
+            scp -O \
+                "\${SSH_OPTIONS[@]}" \
+                "\$@" \
+                -- \
+                "\$SOURCE" \
+                "root@\${ID}:\$DESTINATION"
+            ;;
 
-    --download|download)
-        exec scp -O \
-            "\${SSH_OPTIONS[@]}" \
-            -- \
-            "root@\${ID}:\$SOURCE" \
-            "\$DESTINATION"
-        ;;
+        --download|download)
+            scp -O \
+                "\${SSH_OPTIONS[@]}" \
+                "\$@" \
+                -- \
+                "root@\${ID}:\$SOURCE" \
+                "\$DESTINATION"
+            ;;
 
-    *)
-        usage
-        ;;
-esac
+        *)
+            usage
+            ;;
+    esac
+}
+
+if "\$CACHE" current "\$ID" "\$SOCKET"; then
+    case "\$MODE" in
+        upload)
+            if [[ ! -e "\$SOURCE" ]]; then
+                echo "Local source does not exist: \$SOURCE" >&2
+                exit 1
+            fi
+
+            exec scp -O \
+                "\${SSH_OPTIONS[@]}" \
+                -- \
+                "\$SOURCE" \
+                "root@\${ID}:\$DESTINATION"
+            ;;
+
+        --download|download)
+            exec scp -O \
+                "\${SSH_OPTIONS[@]}" \
+                -- \
+                "root@\${ID}:\$SOURCE" \
+                "\$DESTINATION"
+            ;;
+
+        *)
+            usage
+            ;;
+    esac
+fi
+
+CONTROL="\$SOCKET_DIR/.gwlist-control-\${ID}-\$\$"
+CONTROL_OPTIONS=(
+    -o ControlMaster=auto
+    -o ControlPersist=15s
+    -o "ControlPath=\$CONTROL"
+)
+
+if run_scp "\${CONTROL_OPTIONS[@]}"; then
+    rc=0
+else
+    rc=\$?
+fi
+
+"\$CACHE" sync "\$ID" "\$SOCKET" "\$CONTROL" >/dev/null 2>&1 || true
+ssh -S "\$CONTROL" -O exit root@"\$ID" >/dev/null 2>&1 || true
+rm -f "\$CONTROL"
+
+exit "\$rc"
 EOF
 
   chmod 0755 /usr/local/bin/gwscp
@@ -525,6 +794,8 @@ EOF
 set -euo pipefail
 
 socket_dir="$socket_dir"
+cache_dir="\$socket_dir/.gwlist-state"
+cache_helper="/usr/local/bin/rssh-state-cache"
 
 format_remaining() {
   local total="\$1" days hours minutes seconds
@@ -552,41 +823,32 @@ printf "%-32s %-8s %s\n" DEVICE_ID STATE AUTO_CLOSE_IN
 found=0
 
 while IFS= read -r line; do
-  p="\$(grep -o "\$socket_dir/[A-Za-z0-9._-]*\\.sock" <<<"\$line" | head -n1 || true)"
+  p="\$(grep -o "\$socket_dir/[A-Za-z0-9._-]*\.sock" <<<"\$line" | head -n1 || true)"
   [[ -n "\$p" ]] || continue
 
   id="\$(basename "\$p" .sock)"
   auto_close_in="unknown"
 
-  state="\$(
-    ssh -T \\
-      -o BatchMode=yes \\
-      -o ConnectTimeout=5 \\4
-      -o StrictHostKeyChecking=accept-new \\
-      -o "ProxyCommand=/usr/local/bin/rssh-unix-proxy.py \$p" \\
-      -o "HostKeyAlias=\${id}-reverse" \\
-      root@"\$id" \\
-      'cat /var/lib/reverse-ssh-control/state 2>/dev/null' \\
-      2>/dev/null || true
-  )"
+  if "\$cache_helper" current "\$id" "\$p"; then
+    state="\$(cat "\$cache_dir/\${id}.state" 2>/dev/null || true)"
+    mode="\$(sed -n 's/^MODE="\([^"]*\)"\$/\1/p' <<<"\$state" | tail -n1)"
+    expires_at="\$(sed -n 's/^EXPIRES_AT="\([0-9][0-9]*\)"\$/\1/p' <<<"\$state" | tail -n1)"
 
-  mode="\$(sed -n 's/^MODE="\\([^"]*\\)"\$/\\1/p' <<<"\$state" | tail -n1)"
-  expires_at="\$(sed -n 's/^EXPIRES_AT="\\([0-9][0-9]*\\)"\$/\\1/p' <<<"\$state" | tail -n1)"
-
-  case "\$mode" in
-    timed)
-      if [[ "\$expires_at" =~ ^[0-9]+\$ ]]; then
-        remaining=\$((expires_at - \$(date +%s)))
-        auto_close_in="\$(format_remaining "\$remaining")"
-      fi
-      ;;
-    always)
-      auto_close_in="never"
-      ;;
-    closed)
-      auto_close_in="0s"
-      ;;
-  esac
+    case "\$mode" in
+      timed)
+        if [[ "\$expires_at" =~ ^[0-9]+\$ ]]; then
+          remaining=\$((expires_at - \$(date +%s)))
+          auto_close_in="\$(format_remaining "\$remaining")"
+        fi
+        ;;
+      always)
+        auto_close_in="never"
+        ;;
+      closed)
+        auto_close_in="0s"
+        ;;
+    esac
+  fi
 
   printf "%-32s %-8s %s\n" "\$id" online "\$auto_close_in"
   found=1

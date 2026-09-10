@@ -3,3 +3,6 @@ SUBSYSTEM=="tty", KERNEL=="ttyS3", GROUP="skfgw", MODE="0660"
  
 # SKF Gateway GPIO physical key
 SUBSYSTEM=="input", KERNEL=="event*", ENV{ID_PATH}=="platform-gpio-keys1", GROUP="skfgw", MODE="0640"
+
+# SKF Gateway LTE USB modem
+SUBSYSTEM=="usb", ATTR{idVendor}=="2c7c", ATTR{idProduct}=="0125", GROUP="skfgw", MODE="0660"

@@ -1,0 +1,11 @@
+[Unit]
+Description=SKF Gateway Network Recovery Request Watcher
+After=systemd-tmpfiles-setup.service
+Before=skf-gw-mqtt.service
+ 
+[Path]
+DirectoryNotEmpty=/run/skf-gateway/network-recovery/requests
+Unit=skf-gw-network-recovery.service
+ 
+[Install]
+WantedBy=skf-gateway.target

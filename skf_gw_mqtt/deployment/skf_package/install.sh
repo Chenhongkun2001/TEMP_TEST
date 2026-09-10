@@ -106,7 +106,10 @@ pkill -x skf_gw_modbus_rtu 2>/dev/null || true
  
 # Old autorun manipulates Bluetooth and must not control new systemd chain.
 systemctl disable autorun.service 2>/dev/null || true
- 
+
+systemctl stop skf-gw-mqtt.service 2>/dev/null || true
+systemctl stop skf-gw.service      2>/dev/null || true
+systemctl stop skf-gw-sql.service  2>/dev/null || true
  
 #
 # 2. Create dedicated Gateway application account
@@ -169,12 +172,67 @@ install -d -o root  -g root  -m 0755 /usr/libexec/skf-gateway
 install -d -o root  -g root  -m 0755 /etc/skf-gateway
  
 install -d -o skfgw -g skfgw -m 0700 /var/lib/skf-gateway
+ 
 NEW_DB="/var/lib/skf-gateway/skf.db"
 OLD_DB="/home/root/skf_gw_mqtt/skf.db"
  
-if [ ! -s "${NEW_DB}" ] && [ -s "${OLD_DB}" ]; then
+db_usable()
+{
+    local db="$1"
+    local check=""
+    local required_tables=""
  
-    echo "Migrating legacy SKF gateway database..."
+    [ -s "${db}" ] || return 1
+ 
+    check="$(
+        sqlite3 "${db}" \
+            'PRAGMA quick_check;' \
+            2>/dev/null || true
+    )"
+ 
+    [ "${check}" = "ok" ] || return 1
+ 
+    required_tables="$(
+        sqlite3 "${db}" "
+SELECT COUNT(*)
+FROM sqlite_master
+WHERE type='table'
+  AND name IN (
+      'Gateway',
+      'Dev',
+      'Sensor',
+      'SensorData'
+  );
+" 2>/dev/null || true
+    )"
+ 
+    [ "${required_tables}" = "4" ]
+}
+ 
+ 
+if db_usable "${NEW_DB}"; then
+ 
+    echo "Existing SKF Gateway database is healthy."
+ 
+elif db_usable "${OLD_DB}"; then
+ 
+    echo "Current Gateway DB is missing or unhealthy."
+    echo "Restoring verified legacy Gateway database..."
+ 
+    if [ -e "${NEW_DB}" ]; then
+        BAD_DB="${NEW_DB}.bad.$(date +%Y%m%d-%H%M%S)"
+ 
+        cp -a \
+            "${NEW_DB}" \
+            "${BAD_DB}"
+ 
+        echo "Preserved unhealthy DB as:"
+        echo "  ${BAD_DB}"
+    fi
+ 
+    rm -f \
+        "${NEW_DB}-wal" \
+        "${NEW_DB}-shm"
  
     install \
         -o skfgw \
@@ -182,6 +240,19 @@ if [ ! -s "${NEW_DB}" ] && [ -s "${OLD_DB}" ]; then
         -m 0600 \
         "${OLD_DB}" \
         "${NEW_DB}"
+ 
+    if ! db_usable "${NEW_DB}"; then
+        echo "ERROR: restored Gateway database failed validation."
+        exit 1
+    fi
+ 
+else
+ 
+    echo "ERROR: no healthy SKF Gateway database is available."
+    echo "Current DB: ${NEW_DB}"
+    echo "Legacy DB:  ${OLD_DB}"
+    exit 1
+ 
 fi
 install -d -o skfgw -g skfgw -m 0700 /var/lib/skf-gateway/config
 install -d -o skfgw -g skfgw -m 0700 /var/lib/skf-gateway/data
@@ -327,7 +398,8 @@ for f in \
     bluetooth-provision.sh \
     bluetooth-recover.sh \
     provision-credentials.sh \
-    hci-conn-update-dispatch.sh
+    hci-conn-update-dispatch.sh \
+    network-recovery-dispatch.sh
 do
     install -o root -g root -m 0755 \
         "${PKG_DIR}/scripts/${f}" \
@@ -352,7 +424,10 @@ for f in \
     skf-gw-bluetooth-recover.path \
     skf-gateway-firstboot-credential.service \
     skf-gw-hci-conn-update.service \
-    skf-gw-hci-conn-update.path
+    skf-gw-hci-conn-update.path \
+    skf-gw-network-recovery.service \
+    skf-gw-network-recovery.path \
+    skf-gw-quectel.service
 do
     install -o root -g root -m 0644 \
         "${PKG_DIR}/systemd/${f}" \
@@ -405,7 +480,12 @@ udevadm trigger \
     --action=add \
     --subsystem-match=tty \
     2>/dev/null || true
- 
+
+udevadm trigger \
+    --action=add \
+    --subsystem-match=usb \
+    2>/dev/null || true
+
 udevadm settle 2>/dev/null || true
  
  
@@ -458,6 +538,7 @@ rm -f \
 
 systemctl daemon-reload
 systemctl start skf-gw-hci-conn-update.path
+systemctl start skf-gw-network-recovery.path
 
 if [ -x /usr/bin/reverse-ssh-control ]; then
     REVERSE_STATUS="$(/usr/bin/reverse-ssh-control status 2>/dev/null || true)"
@@ -611,6 +692,8 @@ systemctl enable skf-gateway-firstboot-credential.service
 # takes effect without rebooting the Gateway.
 #
 systemctl start skf-gw-bluetooth-recover.path
+systemctl start skf-gw-hci-conn-update.path
+systemctl start skf-gw-network-recovery.path
 
 echo
 echo "=================================================="

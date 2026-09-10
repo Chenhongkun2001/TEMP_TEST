@@ -3,6 +3,9 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
+#include <time.h>
+ 
 #include "global.h"
 // #include <sys/stat.h>
 // #include <sys/statfs.h>
@@ -18,6 +21,175 @@ bool isDhcp = false;
 char gwIp[20] = { 0 };
 static enum net_id currentNet = NET_ETH1;
 
+#define SKF_NET_REQ_DIR \
+  "/run/skf-gateway/network-recovery/requests"
+ 
+#define SKF_NET_RES_DIR \
+  "/run/skf-gateway/network-recovery/results"
+ 
+ 
+static app_state_t
+app_net_priv_request(
+  const char *op,
+  int arg1,
+  const char *arg2)
+{
+  static uint32_t seq = 0;
+ 
+  struct timespec ts;
+ 
+  char token[96] = { 0 };
+  char req_tmp[256] = { 0 };
+  char req_path[256] = { 0 };
+  char res_path[256] = { 0 };
+ 
+  int fd = -1;
+ 
+  if(op == NULL)
+  {
+    return ST_ERR;
+  }
+ 
+  clock_gettime(
+    CLOCK_MONOTONIC,
+&ts);
+ 
+  snprintf(
+    token,
+    sizeof(token),
+    "%ld-%ld-%ld-%u",
+    (long)getpid(),
+    (long)ts.tv_sec,
+    (long)ts.tv_nsec,
+    ++seq);
+ 
+  snprintf(
+    req_tmp,
+    sizeof(req_tmp),
+    "%s/%s.tmp",
+    SKF_NET_REQ_DIR,
+    token);
+ 
+  snprintf(
+    req_path,
+    sizeof(req_path),
+    "%s/%s.req",
+    SKF_NET_REQ_DIR,
+    token);
+ 
+  snprintf(
+    res_path,
+    sizeof(res_path),
+    "%s/%s.result",
+    SKF_NET_RES_DIR,
+    token);
+ 
+  fd = open(
+    req_tmp,
+    O_WRONLY |
+    O_CREAT |
+    O_EXCL |
+    O_CLOEXEC,
+    0600);
+ 
+  if(fd < 0)
+  {
+    LOG_ERR(
+      OUTPOINT,
+      "NET_PRIV request open failed: %s",
+      strerror(errno));
+ 
+    return ST_ERR;
+  }
+ 
+  if(dprintf(
+       fd,
+       "%s %d %s\n",
+       op,
+       arg1,
+       (arg2 != NULL) ? arg2 : "-") <= 0)
+  {
+    close(fd);
+    unlink(req_tmp);
+ 
+    LOG_ERR(
+      OUTPOINT,
+      "NET_PRIV request write failed");
+ 
+    return ST_ERR;
+  }
+ 
+  fsync(fd);
+  close(fd);
+ 
+  /*
+   * Publish atomically so the path unit never sees
+   * an incomplete request.
+   */
+  if(rename(req_tmp, req_path) != 0)
+  {
+    unlink(req_tmp);
+ 
+    LOG_ERR(
+      OUTPOINT,
+      "NET_PRIV request rename failed: %s",
+      strerror(errno));
+ 
+    return ST_ERR;
+  }
+ 
+  /*
+   * Preserve the old synchronous call semantics.
+   * This does not alter toggleNetwork() retry/sleep logic.
+   */
+  for(int i = 0; i < 1200; i++)
+  {
+    FILE *fp = fopen(
+      res_path,
+      "r");
+ 
+    if(fp != NULL)
+    {
+      int rc = -1;
+ 
+      if(fscanf(
+           fp,
+           "%d",
+&rc) == 1)
+      {
+        fclose(fp);
+        unlink(res_path);
+ 
+        if(rc == 0)
+        {
+          return ST_OK;
+        }
+ 
+        LOG_ERR(
+          OUTPOINT,
+          "NET_PRIV op %s failed rc=%d",
+          op,
+          rc);
+ 
+        return ST_ERR;
+      }
+ 
+      fclose(fp);
+    }
+ 
+    usleep(100000);
+  }
+ 
+  unlink(req_path);
+ 
+  LOG_ERR(
+    OUTPOINT,
+    "NET_PRIV op %s timeout",
+    op);
+ 
+  return ST_ERR;
+}
+
 /**
  * @brief Initialize the GPIO for LTE module control
  * @return @p ST_OK if things go well
@@ -25,38 +197,33 @@ static enum net_id currentNet = NET_ETH1;
 app_state_t
 app_com_init_gpio_for_lte_ctr(void)
 {
-  app_state_t tpret = ST_OK;
-  const char *str_pin_export =
-    "echo 86 > /sys/class/gpio/export";
-  const char *str_pin_dir =
-    "echo \"out\" > /sys/class/gpio/gpio86/direction";
-  const char *str_pin_val =
-    "echo 0 > /sys/class/gpio/gpio86/value";
-
-  // To export the PIN
-  if(0 != system(str_pin_export))
-  {
-    tpret = ST_ERR;
-    LOG_ERR(OUTPOINT, "Failed to execute %s", str_pin_export);
-    goto EXIT;
-  }
-  // To set the PIN as output
-  if(0 != system(str_pin_dir))
-  {
-    tpret = ST_ERR;
-    LOG_ERR(OUTPOINT, "Failed to execute %s", str_pin_dir);
-    goto EXIT;
-  }
-  // To set the default output as 0
-  if(0 != system(str_pin_val))
-  {
-    tpret = ST_ERR;
-    LOG_ERR(OUTPOINT, "Failed to execute %d", str_pin_val);
-    goto EXIT;
-  }
-EXIT:
-  return tpret;
+  return app_net_priv_request(
+    "gpio_init",
+    0,
+    NULL);
 }
+
+/**
+* @brief Power on/off the LTE module.
+*
+* The original synchronous call semantics are preserved.
+* Only the privileged GPIO operation is delegated to the
+* root network-recovery helper.
+*
+* @param nstate true to power on; false to power off.
+* @return ST_OK on success, ST_ERR on failure.
+*/
+
+app_state_t
+app_com_set_lte_power_supply(
+  const bool nstate)
+{
+  return app_net_priv_request(
+    "lte_power",
+    nstate ? 1 : 0,
+    NULL);
+}
+ 
 /**
  * @brief Power on/off the LTE module
  * @param nstate: true to power on the LTE module; false to power off the
@@ -64,29 +231,23 @@ EXIT:
  * @return @p ST_OK if things go well
  */
 app_state_t
-app_com_set_lte_power_supply(const bool nstate)
+app_com_set_lte_con_state(
+  const bool nstate)
 {
-  app_state_t tpret = ST_OK;
-  char *cmdstr = "echo %d > /sys/class/gpio/gpio86/value";
-  char strbuf[128] = { 0 };
-
-  if(nstate)
+  if(true !=
+     app_com_is_lte_module_attached())
   {
-    snprintf(strbuf, sizeof(strbuf), cmdstr, 1);
-    LOG_DEBUG(OUTPOINT, "%s", strbuf);
+    LOG_ERR(
+      OUTPOINT,
+      "The LTE module has not been attached yet");
+ 
+    return ST_ERR;
   }
-  else
-  {
-    snprintf(strbuf, sizeof(strbuf), cmdstr, 0);
-    LOG_DEBUG(OUTPOINT, "%s", strbuf);
-  }
-
-  if(0 != system(strbuf))
-  {
-    tpret = ST_ERR;
-    LOG_ERR(OUTPOINT, "Failed to execute: %s", strbuf);
-  }
-  return tpret;
+ 
+  return app_net_priv_request(
+    "lte_connect",
+    nstate ? 1 : 0,
+    NULL);
 }
 /**
  * @brief To check whether the LTE module is attached to the usb bus
@@ -187,129 +348,19 @@ ERR:
   return tpret;
 }
 /**
- * @brief Connect to/disconnect from internet
- * @param nstate: True to connect to internet; false to disconnect from
- * internet
- * @return true if things go well
- */
-app_state_t
-app_com_set_lte_con_state(const bool nstate)
-{
-  app_state_t tpret = ST_OK;
-
-  if(true != app_com_is_lte_module_attached())
-  {
-    LOG_ERR(OUTPOINT, "The LTE module has not been attached yet");
-    tpret = ST_ERR;
-    return tpret;
-  }
-
-  if(nstate)
-  {
-    LOG_INFO(OUTPOINT, "To execute: %s", CMD_STR_LAUNCH_QCM);
-    if(0 != system(CMD_STR_LAUNCH_QCM))
-    {
-      LOG_ERR(OUTPOINT, "Failed to connect internet");
-      tpret = ST_ERR;
-    }
-  }
-  else
-  {
-    LOG_INFO(OUTPOINT, "To execute: %s", CMD_STR_KILL_QCM);
-    if(0 != system(CMD_STR_KILL_QCM))
-    {
-      LOG_ERR(OUTPOINT, "Failed to disconnect internet");
-      tpret = ST_ERR;
-    }
-  }
-  return tpret;
-}
-/**
  * @brief Setup the route for eth0/eth1/wwan/wifi
  * @param net: To assign which network requiring to get/set the gateway IP
  * automatically
  * @return @p ST_OK if things go well
  */
 app_state_t
-app_com_set_up_route_for_dhcp(const enum net_id net)
+app_com_set_up_route_for_dhcp(
+  const enum net_id net)
 {
-  app_state_t tpret = ST_OK;
-  FILE *ptfile = NULL;
-  uint8_t strbuf[0x100] = { 0 };
-  uint8_t *pt_cmdstr = NULL;
-
-  switch(net)
-  {
-    case NET_ETH0:
-    {
-      pt_cmdstr = CMD_STR_GET_ETH0_GWIP;
-      break;
-    }
-    case NET_ETH1:
-    {
-      pt_cmdstr = CMD_STR_GET_ETH1_GWIP;
-      break;
-    }
-    case NET_LTE:
-    {
-      pt_cmdstr = CMD_STR_GET_WWAN_GWIP;
-      break;
-    }
-    case NET_WIFI:
-    {
-      pt_cmdstr = CMD_STR_GET_WIFI_GWIP;
-      break;
-    }
-    default:
-    {
-      LOG_ERR(OUTPOINT, "Unknown network interface");
-      tpret = ST_ERR;
-      goto EXIT;
-    }
-  }
-
-  LOG_INFO(OUTPOINT, "To execute: %s", pt_cmdstr);
-  ptfile = popen(pt_cmdstr, "r");
-  if(NULL == ptfile)
-  {
-    LOG_ERR(OUTPOINT, "Failed to popen");
-    tpret = ST_ERR;
-    goto EXIT;
-  }
-
-  if(fgets((void *)strbuf, sizeof(strbuf), ptfile) <= 0)
-  {
-    LOG_ERR(OUTPOINT, "Failed to read the return, for %s",
-            strerror(errno));
-    tpret = ST_ERR;
-    goto EXIT;
-  }
-
-  // LOG_DEBUG(OUTPOINT, "gwip : %s, len %d", strbuf, strlen(strbuf));
-  // for(uint32_t i = (strlen(strbuf) - 1); i > 0; i--)
-  // {
-  //   if((strbuf[i] != '\n') && (strbuf[i] != '\n'))
-  //   {
-  //     break;
-  //   }
-  //   strbuf[i] = 0;
-  // }
-
-  // // to set up the route
-  // if(ST_OK != app_com_set_up_default_route(net, strbuf))
-  // {
-  //   LOG_ERR(OUTPOINT, "Failed to add the route");
-  //   tpret = ST_ERR;
-  //   goto EXIT;
-  // }
-
-EXIT:
-  if(ptfile)
-  {
-    pclose(ptfile);
-    ptfile = NULL;
-  }
-  return tpret;
+  return app_net_priv_request(
+    "dhcp",
+    (int)net,
+    NULL);
 }
 /**
  * @brief Setup the default route to the given IP address
@@ -322,79 +373,28 @@ app_com_set_up_default_route(
   const enum net_id net,
   const char *pt_gwip)
 {
-  app_state_t tpret = ST_OK;
-  const char *pt_net_iname = NULL;
-  const char *hld_cmdstr_add_defroute = "route add default gw %s %s";
-  const char *hld_cmdstr_del_defroute = "route del default";
-  char strbuf[0x100] = { 0 };
-
-  if(NULL == pt_gwip)
+  if(pt_gwip == NULL)
   {
-    LOG_ERR(OUTPOINT, "unexpected NULL");
-    tpret = ST_ERR;
-    goto EXIT;
+    LOG_ERR(
+      OUTPOINT,
+      "unexpected NULL");
+ 
+    return ST_ERR;
   }
-
+ 
   if(strlen(pt_gwip) < 7)
   {
-    // 0.0.0.0 -> 7
-    // Just quickly check the validity of gw IP
-    LOG_ERR(OUTPOINT, "invalid GW IP str");
-    tpret = ST_ERR;
-    goto EXIT;
+    LOG_ERR(
+      OUTPOINT,
+      "invalid GW IP str");
+ 
+    return ST_ERR;
   }
-
-  switch(net)
-  {
-    case NET_ETH0:
-    {
-      pt_net_iname = NET_ETH0_INAME;
-      break;
-    }
-    case NET_ETH1:
-    {
-      pt_net_iname = NET_ETH1_INAME;
-      break;
-    }
-    case NET_LTE:
-    {
-      pt_net_iname = NET_LTE_INAME;
-      break;
-    }
-    case NET_WIFI:
-    {
-      pt_net_iname = NET_WIFI_INAME;
-      break;
-    }
-    default:
-    {
-      LOG_ERR(OUTPOINT, "Unknown network");
-      tpret = ST_ERR;
-      goto EXIT;
-    }
-  }
-
-  // Delete the default first
-  LOG_DEBUG(OUTPOINT, "To execute : %s", hld_cmdstr_del_defroute);
-  if(0 != system(hld_cmdstr_del_defroute))
-  {
-    LOG_WARN(OUTPOINT, "Failed to delete the default route, which may be led by there is no default route");
-  }
-
-  // Add the default route
-  snprintf(strbuf, sizeof(strbuf), hld_cmdstr_add_defroute, pt_gwip,
-           pt_net_iname);
-  LOG_DEBUG(OUTPOINT, "To execute:%s", strbuf);
-  if(0 != system(strbuf))
-  {
-    LOG_ERR(OUTPOINT, "Failed to add default route");
-    tpret = ST_ERR;
-    goto EXIT;
-  }
-
-  LOG_INFO(OUTPOINT, "The default route is modified successfully");
-EXIT:
-  return tpret;
+ 
+  return app_net_priv_request(
+    "default_route",
+    (int)net,
+    pt_gwip);
 }
 /**
  * @brief Toggle network between ethernet1 and cellular (e.g., to switch
@@ -525,34 +525,13 @@ toggleNetwork(void)
 /*to add interface wwan0 to the management of service systemd-networkd
 ret@app_state_t
 */
-app_state_t app_com_set_wwan0_managed(void)
+app_state_t
+app_com_set_wwan0_managed(void)
 {
-	app_state_t tpret = ST_OK;
-	const uint8_t *pt_fpath = "/etc/systemd/network/20-wwan0.network";
-	const uint8_t *pt_confinfo = "[Match]\nName=wwan*\n[Network]\nDHCP=no\nIgnoreCarrierLoss=yes\n[Link]\nRequiredForOnline=no\n";
-	const uint8_t *pt_cmdstr = "chmod 0644 /etc/systemd/network/20-wwan0.network ;  systemctl restart systemd-networkd";
-	int32_t kpfd = -1;
-
-	// to write the configuration file
-	kpfd = open( pt_fpath, O_CREAT|O_RDWR, 0644);
-	if(kpfd < 0)
-	{
-		LOG_ERR(OUTPOINT,"fail to open %s, for %s", pt_fpath, strerror(errno));
-		tpret = ST_ERR;
-		return tpret;
-	}
-	write(kpfd, pt_confinfo, strlen(pt_confinfo));
-	close(kpfd);
-	// to restart the service systemd-networkd
-	LOG_WARN(OUTPOINT,"to execute: %s", pt_cmdstr);
-	if(0 != system(pt_cmdstr))
-	{
-		LOG_ERR(OUTPOINT,"system fail");
-		tpret = ST_ERR;
-		return tpret;
-	}
-	LOG_WARN(OUTPOINT,"wwan0 should be under the management of service systemd-networkd now");
-	return tpret;
+  return app_net_priv_request(
+    "wwan_managed",
+    0,
+    NULL);
 }
 
 

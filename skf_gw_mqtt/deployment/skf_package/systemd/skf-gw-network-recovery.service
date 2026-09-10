@@ -1,0 +1,13 @@
+[Unit]
+Description=SKF Gateway Privileged Network Recovery
+After=systemd-networkd.service
+ 
+[Service]
+Type=oneshot
+ 
+User=root
+Group=root
+ 
+ExecStart=/usr/libexec/skf-gateway/network-recovery-dispatch.sh
+ 
+TimeoutStartSec=120

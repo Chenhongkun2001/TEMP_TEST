@@ -1674,7 +1674,15 @@ main(
   char tempmac[50] = {0};
   gw_pro_message_header_t *pdata = (gw_pro_message_header_t *)msgbufp.mtext;
   int ret = -1;
-  create_sql(DATABASE_NAME);
+  if(create_sql(DATABASE_NAME) != 0)
+{
+  LOG_ERR(
+    OUTPOINT,
+    "Failed to initialize database: %s\r\n",
+    DATABASE_NAME);
+ 
+  return 1;
+}
   mqtt_msgid = msgget(MSG_MQTT_QUEUE_KEY, IPC_CREAT | MSG_QUEUE_FLAG);
   sql_msgid = msgget(MSG_SQL_QUEUE_KEY, IPC_CREAT | MSG_QUEUE_FLAG);
   ble_msgid = msgget(MSG_BLE_QUEUE_KEY, IPC_CREAT | MSG_QUEUE_FLAG);

@@ -308,24 +308,27 @@ request_privileged_hci_update(
     token);
  
   /*
-   * Request format:
-   *
-   * MAC PHY MIN MAX LAT SUP MINCE MAXCE
-   */
+  * Request format:
+  *
+  * MAC MIN MAX LAT SUP MINCE MAXCE
+  *
+  * PHY is intentionally not serialized here.
+  * The privileged helper fixes PHY to LE_PHY_1M,
+  * matching the original production behavior.
+  */
   payload_len = snprintf(
     payload,
     sizeof(payload),
     "%02X%02X%02X%02X%02X%02X "
-    "%u %u %u %u %u %u %u\n",
- 
+    "%u %u %u %u %u %u\n",
+  
     con_id[0],
     con_id[1],
     con_id[2],
     con_id[3],
     con_id[4],
     con_id[5],
- 
-    (unsigned int)con_param->phy,
+  
     (unsigned int)con_param->min_con_interval,
     (unsigned int)con_param->max_con_interval,
     (unsigned int)con_param->con_latency,

@@ -3,11 +3,13 @@ Description=SKF Gateway MQTT Service
  
 Wants=skf-gw.service
 Wants=skf-gw-sql.service
+Wants=skf-gw-network-recovery.path
+Wants=network-online.target
  
 After=skf-gw.service
 After=skf-gw-sql.service
+After=skf-gw-network-recovery.path
 After=network-online.target
-Wants=network-online.target
  
 [Service]
 Type=simple

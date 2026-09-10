@@ -21,6 +21,8 @@ export OBJDUMP=${CROSS_COMPILE}objdump
 export AS LD CXX AR NM STRIP OBJCOPY OBJDUMP
 
 handle_deploy(){
+    mkdir -p \
+    ${ROOT_DIR}/deployment/skf_package/bin
     cd  ${ROOT_DIR}/deployment/skf_package
     # cp -arf ${ROOT_DIR}/libs/cJSON-master/usr/local/lib/*  libs/
     # cp -arf ${ROOT_DIR}/libs/paho.mqtt.c/lib/*  libs/
@@ -28,7 +30,7 @@ handle_deploy(){
     # tar -czf libs.tar.gz libs
     # rm -rf libs
     cp -arf ${ROOT_DIR}/libs/libs.tar.gz  ./
-    cp  ${ROOT_DIR}/tools/* ./
+    # cp  ${ROOT_DIR}/tools/* ./
     cd  ${ROOT_DIR}  
 }
 
@@ -44,13 +46,18 @@ build_usage() {
     "
 }
 
-clean_all() {
+clean_all()
+{
     for element in ${TARGET_DIRS[*]}; do
-        cd ${ROOT_DIR}/$element
+        cd ${ROOT_DIR}/${element}
         make clean
     done
-    cd  ${ROOT_DIR}/deployment/skf_package
-    rm -rf *
+ 
+    rm -f \
+        ${ROOT_DIR}/deployment/skf_package/bin/mqtt_op \
+        ${ROOT_DIR}/deployment/skf_package/bin/sql_op
+ 
+    cd ${ROOT_DIR}
 }
 build_sql() {
     cd ${ROOT_DIR}/sqlite
@@ -63,7 +70,7 @@ build_sql() {
         mv compile_commands.json ../
     fi
     handle_deploy
-    cp ${ROOT_DIR}/sqlite/sql_op  ${ROOT_DIR}/deployment/skf_package
+    cp ${ROOT_DIR}/sqlite/sql_op  ${ROOT_DIR}/deployment/skf_package/bin/sql_op
 }
 build_test() {
     cd ${ROOT_DIR}/test_exec
@@ -80,8 +87,8 @@ build_all() {
         fi
     done
     handle_deploy
-    cp ${ROOT_DIR}/mqtt/mqtt_op  ${ROOT_DIR}/deployment/skf_package
-    cp ${ROOT_DIR}/sqlite/sql_op  ${ROOT_DIR}/deployment/skf_package
+    cp ${ROOT_DIR}/mqtt/mqtt_op  ${ROOT_DIR}/deployment/skf_package/bin/mqtt_op
+    cp ${ROOT_DIR}/sqlite/sql_op  ${ROOT_DIR}/deployment/skf_package/bin/sql_op
 }
 build_mqtt() {
     cd ${ROOT_DIR}/mqtt
@@ -96,7 +103,7 @@ build_mqtt() {
         mv compile_commands.json ../
     fi
     handle_deploy   
-    cp ${ROOT_DIR}/mqtt/mqtt_op  ${ROOT_DIR}/deployment/skf_package
+    cp ${ROOT_DIR}/mqtt/mqtt_op  ${ROOT_DIR}/deployment/skf_package/bin/mqtt_op
 }
 
 case $1 in

@@ -1,47 +1,39 @@
 [Unit]
-
 Description=SKF Gateway Main Application
  
 Requires=skf-gw-gpio-init.service
-
-Requires=skf-gw-bluetooth-recover.path
-
-Requires=skf-gw-hci-conn-update.path
  
 Wants=bluetooth.service
+Wants=skf-gw-bluetooth-recover.path
+Wants=skf-gw-hci-conn-update.path
+Wants=skf-gw-sql.service
  
 After=skf-gw-gpio-init.service
-
 After=bluetooth.service
-
 After=skf-gw-bluetooth-recover.path
-
-After=skf-gw-hci-conn-update.path 
+After=skf-gw-hci-conn-update.path
+After=skf-gw-sql.service
  
 [Service]
-
 Type=simple
  
 User=skfgw
-
 Group=skfgw
  
 WorkingDirectory=/var/lib/skf-gateway
-
 Environment=HOME=/var/lib/skf-gateway
  
 ExecStart=/opt/skf-gateway/bin/skf_gw
  
 Restart=on-failure
-
 RestartSec=5
  
 UMask=0077
-
+ 
+AmbientCapabilities=CAP_NET_RAW
+CapabilityBoundingSet=CAP_NET_RAW
 NoNewPrivileges=true
  
-
 [Install]
-
 WantedBy=skf-gateway.target
 

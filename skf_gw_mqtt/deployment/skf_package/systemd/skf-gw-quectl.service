@@ -1,0 +1,16 @@
+[Unit]
+Description=SKF Gateway Quectel LTE Connection Manager
+After=systemd-networkd.service
+ 
+[Service]
+Type=simple
+ 
+User=root
+Group=root
+ 
+ExecStart=/usr/bin/quectel-CM
+ 
+Restart=no
+ 
+KillSignal=SIGKILL
+SendSIGKILL=yes
