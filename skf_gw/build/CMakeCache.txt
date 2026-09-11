@@ -14,6 +14,9 @@
 # EXTERNAL cache entries
 ########################
 
+//No help, variable specified on the command line.
+ACC_WAVEFORM_REQUIRED:UNINITIALIZED=1
+
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-addr2line
 
@@ -177,9 +180,6 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
-//No help, variable specified on the command line.
-NRF52840NIC:UNINITIALIZED=
-
 //Path to a file.
 SKF_GW_LIBUSB_INCLUDE_DIR:PATH=/home/forlinx/GW/GW/skf_gw/source/libx/include
 
@@ -194,6 +194,15 @@ SKF_GW_LIB_UDEV:FILEPATH=/home/forlinx/work/OK62xx-linux-sdk/OK62xx-linux-fs/roo
 
 //Path to a library.
 SKF_GW_LIB_USB:FILEPATH=/home/forlinx/work/OK62xx-linux-sdk/OK62xx-linux-fs/rootfs/lib/libusb-1.0.so
+
+//No help, variable specified on the command line.
+SKF_GW_NEW:UNINITIALIZED=1
+
+//No help, variable specified on the command line.
+UNIT_TEST:UNINITIALIZED=1
+
+//No help, variable specified on the command line.
+UNIT_TEST_CASE:UNINITIALIZED=15
 
 //Value Computed by CMake
 skf_gw_BINARY_DIR:STATIC=/home/forlinx/GW/GW/skf_gw/build

@@ -219,4 +219,11 @@ CMakeFiles/skf_gw.dir/source/src/bt_gatt.c.o: \
  /home/forlinx/GW/GW/skf_gw/source/include/common/util_dbg.h \
  /home/forlinx/GW/GW/skf_gw/source/include/app_config.h \
  /home/forlinx/GW/GW/skf_gw/source/include/app_general_def.h \
- /home/forlinx/GW/GW/skf_gw/source/include/app_common.h
+ /home/forlinx/GW/GW/skf_gw/source/include/app_common.h \
+ /home/forlinx/GW/GW/skf_gw/source/include/ble/bt_gatt_new.h \
+ /home/forlinx/GW/GW/skf_gw/source/include/sys_def.h \
+ /home/forlinx/GW/GW/skf_gw/source/include/ble/bt_connection_new.h \
+ /home/forlinx/GW/GW/skf_gw_mqtt/middleware/common/global.h \
+ /home/forlinx/GW/GW/skf_gw_mqtt/middleware/common/ppGW.h \
+ /home/forlinx/GW/GW/skf_gw_mqtt/middleware/common/auxiliar.h \
+ /home/forlinx/GW/GW/skf_gw_mqtt/middleware/common/global.h

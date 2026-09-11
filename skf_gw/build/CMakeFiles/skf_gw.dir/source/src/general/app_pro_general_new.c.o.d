@@ -233,6 +233,7 @@ CMakeFiles/skf_gw.dir/source/src/general/app_pro_general_new.c.o: \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/types/struct_sigstack.h \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/sigthread.h \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/signal_ext.h \
+ /home/forlinx/GW/GW/skf_gw/source/include/app_common.h \
  /home/forlinx/GW/GW/skf_gw/source/include/app_hci_evt_mgmt.h \
  /home/forlinx/GW/GW/skf_gw/source/include/app_general_def.h \
  /home/forlinx/GW/GW/skf_gw/source/include/general/app_pro_general_new.h \
