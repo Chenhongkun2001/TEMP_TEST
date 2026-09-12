@@ -351,7 +351,7 @@ if [[ ! -S "\$S" ]]; then
   exit 1
 fi
 
-if "\$CACHE" current "\$ID" "\$S"; then
+if [[ "\$ACT" == "status" ]] && "\$CACHE" current "\$ID" "\$S"; then
   exec ssh \
     -T \
     -o "ProxyCommand=/usr/local/bin/rssh-unix-proxy.py \$S" \
@@ -377,7 +377,23 @@ else
   rc=\$?
 fi
 
-"\$CACHE" sync "\$ID" "\$S" "\$CONTROL" >/dev/null 2>&1 || true
+case "\$ACT" in
+  open|always)
+    if [[ "\$rc" -eq 0 ]]; then
+      "\$CACHE" refresh "\$ID" "\$S" "\$CONTROL" >/dev/null 2>&1 ||
+        "\$CACHE" invalidate "\$ID" >/dev/null 2>&1 || true
+    fi
+    ;;
+  close)
+    "\$CACHE" invalidate "\$ID" >/dev/null 2>&1 || true
+    ;;
+  status)
+    if [[ "\$rc" -eq 0 ]]; then
+      "\$CACHE" sync "\$ID" "\$S" "\$CONTROL" >/dev/null 2>&1 || true
+    fi
+    ;;
+esac
+
 ssh -S "\$CONTROL" -O exit root@"\$ID" >/dev/null 2>&1 || true
 rm -f "\$CONTROL"
 
@@ -444,84 +460,74 @@ valid_id() {
   [[ "\${1:-}" =~ ^[A-Za-z0-9._-]+\$ ]]
 }
 
-session_key() {
-  local socket="\$1" token
-
-  token="\$(
-    ss -xlH | awk -v p="\$socket" '
-      {
-        for (i = 1; i <= NF; i++) {
-          if (\$i == p) {
-            print \$(i + 1)
-            exit
-          }
-        }
-      }
-    '
-  )"
-
-  [[ -n "\$token" ]] || return 1
-  printf '%s\n' "\$token"
-}
-
 cache_file() {
   printf '%s/%s.state\n' "\$CACHE_DIR" "\$1"
 }
 
-cache_is_current() {
-  local id="\$1" socket="\$2" key file stored
+read_valid_cache() {
+  local file="\$1" mode expires
 
-  [[ -S "\$socket" ]] || return 1
-  key="\$(session_key "\$socket")" || return 1
-  file="\$(cache_file "\$id")"
   [[ -f "\$file" ]] || return 1
 
-  stored="\$(sed -n 's/^SESSION_KEY="\([^"]*\)"\$/\1/p' "\$file" | tail -n1)"
-  [[ -n "\$stored" && "\$stored" == "\$key" ]]
+  mode="\$(sed -n 's/^MODE="\([^"]*\)"\$/\1/p' "\$file" | tail -n1)"
+  expires="\$(sed -n 's/^EXPIRES_AT="\([0-9][0-9]*\)"\$/\1/p' "\$file" | tail -n1)"
+
+  case "\$mode" in
+    timed|always|closed) ;;
+    *) return 1 ;;
+  esac
+
+  [[ "\$expires" =~ ^[0-9]+\$ ]] || return 1
+  return 0
 }
 
-sync_from_master() {
-  local id="\$1" socket="\$2" control
-  local lock got_lock i key_before key_after state mode expires file tmp
+cache_is_current() {
+  local id="\$1" socket="\$2" file
 
-  control="\${3:-}"
-
-  cache_is_current "\$id" "\$socket" && return 0
   [[ -S "\$socket" ]] || return 1
-  [[ -n "\$control" ]] || return 1
 
+  file="\$(cache_file "\$id")"
+  read_valid_cache "\$file"
+}
+
+ensure_cache_dir() {
   if [[ "\$(id -u)" -eq 0 ]]; then
     install -d -m 0700 -o "\$CACHE_OWNER" -g "\$CACHE_OWNER" "\$CACHE_DIR"
   else
     install -d -m 0700 "\$CACHE_DIR"
   fi
+}
 
-  lock="\$CACHE_DIR/.\${id}.lock"
-  got_lock=0
-  i=0
+write_cache() {
+  local id="\$1" mode="\$2" expires="\$3" file tmp
 
-  while (( i < 50 )); do
-    if cache_is_current "\$id" "\$socket"; then
-      return 0
-    fi
+  case "\$mode" in
+    timed|always|closed) ;;
+    *) return 1 ;;
+  esac
+  [[ "\$expires" =~ ^[0-9]+\$ ]] || return 1
 
-    if mkdir "\$lock" 2>/dev/null; then
-      got_lock=1
-      break
-    fi
+  ensure_cache_dir
 
-    sleep 0.1
-    i=\$((i + 1))
-  done
+  file="\$(cache_file "\$id")"
+  tmp="\${file}.tmp.\$\$"
+  umask 077
 
-  (( got_lock == 1 )) || return 0
+  printf 'MODE="%s"\nEXPIRES_AT="%s"\n' \
+    "\$mode" \
+    "\$expires" >"\$tmp"
 
-  cleanup_lock() {
-    rmdir "\$lock" 2>/dev/null || true
-  }
-  trap cleanup_lock EXIT HUP INT TERM
+  chmod 0600 "\$tmp"
 
-  key_before="\$(session_key "\$socket")" || return 1
+  if [[ "\$(id -u)" -eq 0 ]]; then
+    chown "\$CACHE_OWNER:\$CACHE_OWNER" "\$tmp" 2>/dev/null || true
+  fi
+
+  mv -f "\$tmp" "\$file"
+}
+
+read_remote_state_via_master() {
+  local id="\$1" control="\$2" state mode expires
 
   ssh \
     -S "\$control" \
@@ -545,48 +551,54 @@ sync_from_master() {
     timed|always|closed) ;;
     *) return 1 ;;
   esac
-
   [[ "\$expires" =~ ^[0-9]+\$ ]] || return 1
 
-  key_after="\$(session_key "\$socket")" || return 1
-  [[ "\$key_after" == "\$key_before" ]] || return 1
+  printf '%s\n%s\n' "\$mode" "\$expires"
+}
 
-  file="\$(cache_file "\$id")"
-  tmp="\${file}.tmp.\$\$"
-  umask 077
+sync_from_master() {
+  local force="\$1" id="\$2" socket="\$3" control="\$4"
+  local values mode expires
 
-  printf 'SESSION_KEY="%s"\nMODE="%s"\nEXPIRES_AT="%s"\n' \
-    "\$key_after" \
-    "\$mode" \
-    "\$expires" >"\$tmp"
+  [[ -S "\$socket" ]] || return 1
 
-  chmod 0600 "\$tmp"
-
-  if [[ "\$(id -u)" -eq 0 ]]; then
-    chown "\$CACHE_OWNER:\$CACHE_OWNER" "\$tmp" 2>/dev/null || true
+  if [[ "\$force" -eq 0 ]] && cache_is_current "\$id" "\$socket"; then
+    return 0
   fi
 
-  mv -f "\$tmp" "\$file"
+  values="\$(read_remote_state_via_master "\$id" "\$control")" || return 1
+  mode="\$(sed -n '1p' <<<"\$values")"
+  expires="\$(sed -n '2p' <<<"\$values")"
 
-  cleanup_lock
-  trap - EXIT HUP INT TERM
-  return 0
+  write_cache "\$id" "\$mode" "\$expires"
+}
+
+invalidate_cache() {
+  local id="\$1"
+  rm -f "\$(cache_file "\$id")"
 }
 
 cmd="\${1:-}"
 id="\${2:-}"
-socket="\${3:-}"
 
 valid_id "\$id" || exit 2
 
 case "\$cmd" in
   current)
     [[ \$# -eq 3 ]] || exit 2
-    cache_is_current "\$id" "\$socket"
+    cache_is_current "\$id" "\$3"
     ;;
   sync)
     [[ \$# -eq 4 ]] || exit 2
-    sync_from_master "\$id" "\$socket" "\$4"
+    sync_from_master 0 "\$id" "\$3" "\$4"
+    ;;
+  refresh)
+    [[ \$# -eq 4 ]] || exit 2
+    sync_from_master 1 "\$id" "\$3" "\$4"
+    ;;
+  invalidate)
+    [[ \$# -eq 2 ]] || exit 2
+    invalidate_cache "\$id"
     ;;
   *)
     exit 2
@@ -639,7 +651,10 @@ else
   rc=\$?
 fi
 
-"\$CACHE" sync "\$ID" "\$S" "\$CONTROL" >/dev/null 2>&1 || true
+if [[ "\$rc" -eq 0 ]]; then
+  "\$CACHE" sync "\$ID" "\$S" "\$CONTROL" >/dev/null 2>&1 || true
+fi
+
 ssh -S "\$CONTROL" -O exit root@"\$ID" >/dev/null 2>&1 || true
 rm -f "\$CONTROL"
 
@@ -708,30 +723,29 @@ SSH_OPTIONS=(
 )
 
 run_scp() {
+    local -a EXTRA=("\$@")
+
     case "\$MODE" in
         upload)
             if [[ ! -e "\$SOURCE" ]]; then
                 echo "Local source does not exist: \$SOURCE" >&2
                 exit 1
             fi
-
             scp -O \
                 "\${SSH_OPTIONS[@]}" \
-                "\$@" \
+                "\${EXTRA[@]}" \
                 -- \
                 "\$SOURCE" \
                 "root@\${ID}:\$DESTINATION"
             ;;
-
         --download|download)
             scp -O \
                 "\${SSH_OPTIONS[@]}" \
-                "\$@" \
+                "\${EXTRA[@]}" \
                 -- \
                 "root@\${ID}:\$SOURCE" \
                 "\$DESTINATION"
             ;;
-
         *)
             usage
             ;;
@@ -745,14 +759,12 @@ if "\$CACHE" current "\$ID" "\$SOCKET"; then
                 echo "Local source does not exist: \$SOURCE" >&2
                 exit 1
             fi
-
             exec scp -O \
                 "\${SSH_OPTIONS[@]}" \
                 -- \
                 "\$SOURCE" \
                 "root@\${ID}:\$DESTINATION"
             ;;
-
         --download|download)
             exec scp -O \
                 "\${SSH_OPTIONS[@]}" \
@@ -760,7 +772,6 @@ if "\$CACHE" current "\$ID" "\$SOCKET"; then
                 "root@\${ID}:\$SOURCE" \
                 "\$DESTINATION"
             ;;
-
         *)
             usage
             ;;
@@ -780,7 +791,10 @@ else
     rc=\$?
 fi
 
-"\$CACHE" sync "\$ID" "\$SOCKET" "\$CONTROL" >/dev/null 2>&1 || true
+if [[ "\$rc" -eq 0 ]]; then
+    "\$CACHE" sync "\$ID" "\$SOCKET" "\$CONTROL" >/dev/null 2>&1 || true
+fi
+
 ssh -S "\$CONTROL" -O exit root@"\$ID" >/dev/null 2>&1 || true
 rm -f "\$CONTROL"
 

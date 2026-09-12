@@ -723,18 +723,102 @@ done
 sleep 3
  
 #
-# Starting the target starts:
-#   sql
-#   gw
-#   mqtt
-#   modbus
-#   privileged path watchers
+# Start the first-generation application stack.
 #
 systemctl start skf-gateway.target
  
 #
-# Installation is NOT successful unless the three critical
-# application services are actually running.
+# Do NOT treat Type=simple "active" as application readiness.
+#
+# The first skf_gw instance initializes:
+#   - SysV IPC
+#   - General/BLE process pair
+#   - BlueZ D-Bus client
+#   - Adapter1 / discovery
+#   - whitelist flow
+#
+# Wait until that first BLE client has brought discovery up.
+#
+GW_WARM=0
+ 
+for i in $(seq 1 20); do
+    if command -v busctl >/dev/null 2>&1; then
+        POWERED="$(
+            busctl get-property \
+                org.bluez \
+                /org/bluez/hci0 \
+                org.bluez.Adapter1 \
+                Powered 2>/dev/null || true
+        )"
+ 
+        DISCOVERING="$(
+            busctl get-property \
+                org.bluez \
+                /org/bluez/hci0 \
+                org.bluez.Adapter1 \
+                Discovering 2>/dev/null || true
+        )"
+ 
+        if echo "$POWERED" |
+               grep -q 'true' &&
+           echo "$DISCOVERING" |
+               grep -q 'true'; then
+            GW_WARM=1
+            break
+        fi
+    fi
+ 
+    sleep 1
+done
+ 
+if [ "$GW_WARM" -ne 1 ]; then
+    echo "ERROR: BLE stack did not reach Powered/Discovering state"
+    journalctl -u skf-gw.service \
+        --since "1 min ago" \
+        --no-pager || true
+    exit 1
+fi
+ 
+#
+# Critical migration closure:
+#
+# The first process was started while the new SQL/Bluetooth/IPC
+# stack was still converging.  Re-create only skf_gw after those
+# dependencies have become stable.
+#
+# This is the same operation proven on the real Gateway:
+#   systemctl restart skf-gw.service
+#
+if ! systemctl restart skf-gw.service; then
+    echo "ERROR: failed to perform stabilized skf_gw restart"
+    exit 1
+fi
+ 
+#
+# Wait for the fresh GW process.
+#
+GW_WAIT=0
+ 
+while ! systemctl is-active --quiet skf-gw.service; do
+    GW_WAIT=$((GW_WAIT + 1))
+ 
+    if [ "$GW_WAIT" -ge 10 ]; then
+        echo "ERROR: skf-gw.service failed after stabilized restart"
+        systemctl status skf-gw.service --no-pager -l || true
+        exit 1
+    fi
+ 
+    sleep 1
+done
+ 
+#
+# skf-gw-modbus.service Requires=skf-gw.service.
+# An explicit GW restart may have stopped it, so restore it.
+#
+systemctl start skf-gw-modbus.service 2>/dev/null || true
+ 
+#
+# Final critical-service validation.
 #
 for unit in \
     skf-gw-sql.service \

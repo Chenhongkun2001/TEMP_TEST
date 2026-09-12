@@ -214,10 +214,6 @@ CMakeFiles/skf_gw.dir/source/src/general/serviceInterface/mobile_server_interfac
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/types/struct_sigstack.h \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/sigthread.h \
  /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/signal_ext.h \
- /home/forlinx/GW/GW/skf_gw/source/include/app_common.h \
- /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/semaphore.h \
- /home/forlinx/work/OK62xx-linux-sdk/external-toolchain-dir/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/usr/include/bits/semaphore.h \
- /home/forlinx/GW/GW/skf_gw/source/include/app_general_def.h \
  /home/forlinx/GW/GW/skf_gw/source/include/general/serviceInterface/service_interface_mobile_phone.h \
  /home/forlinx/GW/GW/skf_gw/source/include/general/froto/app_froto_common.h \
  /home/forlinx/GW/GW/skf_gw_mqtt/middleware/protobuf/pb_decode.h \
